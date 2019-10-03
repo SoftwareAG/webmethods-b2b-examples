@@ -6,6 +6,11 @@ PS : Receiving a file via FTP in B2B Cloud  is in Software AG's roadmap. Please 
 
 Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 
+## Prerequisites
+1. You need an FTP server to connect. You can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
+1. You already have a trial B2B tenant which includes flow editor. If you don't have one sign up for free 30 trial tenant at https://signup.softwareag.cloud/#/?product=b2b
+1. The first thing you need to do after getting a tenant is to create your enterprise in B2B Cloud
+
 # Transaction Flow
 1.  webMethods B2B Cloud comes along with Flow editor . We will create an Integration in Flow editor to receive the file and submit to B2B Cloud. This integration will get the file from an FTP server
 1.  Once the file is received , the integration will map the sender id, receiver id , edi interchange and group envelopes
