@@ -17,5 +17,11 @@ PS : Receiving a file via FTP in B2B Cloud  is in Software AG's roadmap. Please 
 	- send the EDI 855 back to the trading partner via B2B Cloud
 
 # Tutorial Steps
-1. Create an Integration to receive the file and submit to B2B Cloud
+1. Create an Integration to receive the file and submit to B2B Cloud. Follow the steps as shown in the below code snippet
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/receiveFTPFile.png)
+	 Add EDI application and set the operation to addGroupEnvelope. Refer to the following code snippet for mappings
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/mapaddgroupenvelopeinput.png)
+	Add EDI application and set the operation to addInterchangeEnvelope. Refer to the following code snippet for mappings
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/mapInterchangeenvelopeinput.png)
+	Add B2B application and set the operation to submit. Refer to the following code snippet for mappings
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/mapB2BSubmitinput.png)
