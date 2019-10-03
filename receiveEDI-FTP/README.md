@@ -4,6 +4,8 @@ As of today, webMethods B2B Cloud doesnt have an inbound channel for accepting F
 
 PS : Receiving a file via FTP in B2B Cloud  is in Software AG's roadmap. Please check with your account team or Product management for timelines
 
+Contributors : Chaitanya Jadcherla, Mangat Rai, Shashank Patel
+
 # Transaction Flow
 1.  webMethods B2B Cloud comes along with Flow editor . We will create an Integration in Flow editor to receive the file and submit to B2B Cloud. This integration will get the file from an FTP server
 1.  Once the file is received , the integration will map the sender id, receiver id , edi interchange and group envelopes
