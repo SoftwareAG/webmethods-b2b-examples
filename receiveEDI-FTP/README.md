@@ -4,8 +4,6 @@ As of today, webMethods B2B Cloud doesnt have an inbound channel for accepting F
 
 PS : Receiving a file via FTP in B2B Cloud  is in Software AG's roadmap. Please check with your account team or Product management for timelines
 
-Contributors : Chaitanya Jadcherla, Mangat Rai, Shashank Patel
-
 # Transaction Flow
 1.  webMethods B2B Cloud comes along with Flow editor . We will create an Integration in Flow editor to receive the file and submit to B2B Cloud. This integration will get the file from an FTP server
 1.  Once the file is received , the integration will map the sender id, receiver id , edi interchange and group envelopes
@@ -31,3 +29,17 @@ Contributors : Chaitanya Jadcherla, Mangat Rai, Shashank Patel
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/enterprise.png)
 Partner setup 
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addpartner.png)
+1. Add a EDI 850 and 855 business document. This process will create a document type in webMethods Flow Editor , so it will be easy for mappings to be done when a processing rule executes an Integration as part of the action
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addbusinessdocument.png)
+Follow the same step to add EDI 855 as well
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addEDI850.png)
+1. Next, add a processing rule to identify the sender , receiver, and document type to take further action
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/processingRule.png)
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addProcessingrule1.png)
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addProcessingrule2.png)
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addProcessingrule3.png)
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addProcessingrule4.png)
+
+
+
+
