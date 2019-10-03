@@ -33,12 +33,22 @@ Partner setup
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addbusinessdocument.png)
 Follow the same step to add EDI 855 as well
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addEDI850.png)
+1. Now, before adding the processing rule in B2B Cloud, lets create an Integration in Flow Editor which allows you to map and process the EDI. This is where all the mappings and transformations are done and if needed the PO is sent to an ERP system like SAP for example
+	- Swicth to flow editor and click on recipes
+	-Enter "edi" in the search box and press enter
+	-You will see receiveEDI850Send855B2BTransactions recipe. This recipe does the following
+*Receives an EDI 850 Purchase Order (PO) from a trading partner through the webMethods.io B2B product instance, performs service orchestrations to interpret the PO, and uses a back-end FTP server to generate the PO Acknowledgment, and routes it back to the trading partner through webMethods.io B2B product instance.*
+	-Click on Use
+	-Select a project and fill out the application details. If an application is not created , create a new application for each account. This flow assumes you have connectivity to an ftp server. if you dont have one , you can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
+	-see the following code snippet
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/recipe.png)
 1. Next, add a processing rule to identify the sender , receiver, and document type to take further action
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/processingRule.png)
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addProcessingrule1.png)
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addProcessingrule2.png)
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addProcessingrule3.png)
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addProcessingrule4.png)
+
 
 
 
