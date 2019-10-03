@@ -18,8 +18,8 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 1.  B2B Cloud receives the file and identifies the sender and receiver 
 1.  B2B Cloud executes the processing rule based on the senderid, receiverid, document type
 1. B2B cloud executes the processing rule which is configured to call an Integration for further mapping. The integration does the following
-	- Received and parse the EDI 850 file
-	- Convert the edi file to XML
+	- Receive and parse the EDI 850 file
+	- Convert the EDI file to XML
 	- Create an EDI 855
 	- send the EDI 855 back to the trading partner via B2B Cloud
 
