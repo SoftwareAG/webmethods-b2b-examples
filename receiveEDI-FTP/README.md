@@ -25,3 +25,7 @@ PS : Receiving a file via FTP in B2B Cloud  is in Software AG's roadmap. Please 
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/mapInterchangeenvelopeinput.png)
 	Add B2B application and set the operation to submit. Refer to the following code snippet for mappings
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/mapB2BSubmitinput.png)
+1. Create a partner profile. Before this the assumption is you have already created an Enterprise for your company to receive files. here is a screenshot for of how an Enterprise should look like. Setting an Enterprise is a one time setup
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/enterprise.png)
+Partner setup 
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/addpartner.png)
