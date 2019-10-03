@@ -11,7 +11,7 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 1. You already have a trial B2B tenant which includes flow editor. If you don't have one sign up for free 30 trial tenant at https://signup.softwareag.cloud/#/?product=b2b
 1. The first thing you need to do after getting a tenant is to create your enterprise in B2B Cloud
 
-# Transaction Flow
+## Transaction Flow
 1.  webMethods B2B Cloud comes along with Flow editor . We will create an Integration in Flow editor to receive the file and submit to B2B Cloud. This integration will get the file from an FTP server
 1.  Once the file is received , the integration will map the sender id, receiver id , edi interchange and group envelopes
 1.  The EDI document will be submitted to B2B Cloud using the B2B application
@@ -23,7 +23,7 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 	- Create an EDI 855
 	- send the EDI 855 back to the trading partner via B2B Cloud
 
-# Tutorial Steps
+## Tutorial Steps
 1. Create an Integration to receive the file and submit to B2B Cloud. Follow the steps as shown in the below code snippet
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/receiveFTPFile.png)
 	 Add EDI application and set the operation to addGroupEnvelope. Refer to the following code snippet for mappings
