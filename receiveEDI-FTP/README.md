@@ -18,4 +18,4 @@ PS : Receiving a file via FTP in B2B Cloud  is in Software AG's roadmap. Please 
 
 # Tutorial Steps
 1. Create an Integration to receive the file and submit to B2B Cloud
-![]https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/receiveFTPFile.png
+![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receiveEDI-FTP/images/receiveFTPFile.png)
