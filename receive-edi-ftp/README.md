@@ -55,7 +55,7 @@ Follow the same step to add EDI 855 as well
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receive-edi-ftp/images/addProcessingrule2.png)
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receive-edi-ftp/images/addProcessingrule3.png)
 ![](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receive-edi-ftp/images/addProcessingrule4.png)
-##Testing
+## Testing
 
 1. Now the setup is ready to be tested. Make sure you change the sender id and receiver id as you have configured in step 2.
 Place an EDI file ( Sample attached here) in the ftp location configured and the integration created in step 1
