@@ -44,9 +44,9 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 
 3. Create a partner profile. Before this the assumption is you have already created an Enterprise for your company to receive files. Setting an Enterprise is a one time setup
 
-	ACME Partner setup 
+	ACME Partner setup
 	
-	![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addpartner.png)
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addpartner.png)
 
 4. Add a EDI 850 and 855 business document. This process will create a document type in webMethods Flow Editor , so it will be easy for mappings to be done when a processing rule executes an Integration as part of the action
 
@@ -59,57 +59,57 @@ Follow the same step to add EDI 855 as well
 
 5. Create a processing rule to process inbound EDI 850 to identify the sender , receiver, document type and action
 
-	Add Processing rule
-	
+Add Processing rule
+
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/processingRule.png)
 
-	Give a name
-	
+Give a name
+
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule1.png)
 
-	Associate sender/s
-	
+Associate sender/s
+
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule2.png)
 
-	Associate document/s
-	
+Associate document/s
+
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule3.png)
 
-	Provide the name of Integration that you are going to create and expose on webmethods.io Integration in the next step
-	
+Provide the name of Integration that you are going to create and expose on webmethods.io Integration in the next step
+
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule4.png)
 
 
 6. Create an Integration on webmethods.io Integration which parses EDI 850 and converts to XML and sends this XML document to backend Application. Then, receives a response from backend and submits EDI 855 back to B2B
 
-	- Switch to flow editor
-	
+- Switch to flow editor
+
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/FlowEditor.png)
 
-	- Click on Recipes and search for edi. You will see receiveEDI850Send855B2BTransactions recipe. Use this recipe.
-	
+- Click on Recipes and search for edi. You will see receiveEDI850Send855B2BTransactions recipe. Use this recipe.
+
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/recipe_edi.png)
 
-	- Select a project and fill out the application details. If an application is not created , create a new application for each account. This flow assumes you have connectivity to an ftp server. if you dont have one , you can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
-	
-	- See the following code snippet
-	
+- Select a project and fill out the application details. If an application is not created , create a new application for each account. This flow assumes you have connectivity to an ftp server. if you dont have one , you can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
+
+- See the following code snippet
+
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/recipe.png)
 
-	- After successful import
-	
+- After successful import
+
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/receiveEDI850Integration.png)
 
 ## Testing
-
-1. Import the postname collection - <link here> and modify Message-Id in the Request header and submit it to the Inbound channel URL.
-
-![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/postman.png)
 
 1. Place an EDI 855 file on your FTP. Your FTP acts as a back-end Application.
 
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/ftp850855.png)
 
-1. On B2B Cloud, click on Transactions to monitor documents as shown below
+2. Download postname collection - https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/B2B%20wm.io.postman_collection.json and import it on Postman. Modify Message-Id field in the Request header and submit it to the Inbound channel URL.
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/postman.png)
+
+3. On B2B Cloud, click on Transactions to monitor documents as shown below
 
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/b2btransactions.png)
