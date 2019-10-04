@@ -10,11 +10,11 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/B2BLandingPage.png)
 
-1. Create your enterprise Partner profile on B2B Cloud. Provide identifiers to identify your Enterprise uniquely.
+2. Create your enterprise Partner profile on B2B Cloud. Provide identifiers to identify your Enterprise uniquely.
 
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/MyEnterprise.png)
 
-1. You need an FTP server to connect. You can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
+3. You need an FTP server to connect. You can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
 
 ## Transaction Flow
 1. Partner (Postman client) sends EDI 850 to B2B Cloud via AS2 over HTTP
@@ -54,7 +54,15 @@ Follow the same step to add EDI 855 as well
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addEDI850.png)
 
 
-5. Create an Integration on webmethods.io Integration which parses EDI 850 and converts to XML and sends this XML document to backend Application. Then, receives a response from backend and submits EDI 855 back to B2B
+5. Create a processing rule to process inbound EDI 850 to identify the sender , receiver, document type and action
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/processingRule.png)
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule1.png)
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule2.png)
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule3.png)
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule4.png)
+
+
+6. Create an Integration on webmethods.io Integration which parses EDI 850 and converts to XML and sends this XML document to backend Application. Then, receives a response from backend and submits EDI 855 back to B2B
 	- Switch to flow editor and click on recipes
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/FlowEditor.png)
 
@@ -69,13 +77,6 @@ Follow the same step to add EDI 855 as well
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/recipe.png)
 	- After successful import
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/receiveEDI850Integration.png)
-
-6. Create a processing rule to process inbound EDI 850 to identify the sender , receiver, document type and action
-![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/processingRule.png)
-![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule1.png)
-![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule2.png)
-![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule3.png)
-![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule4.png)
 
 ## Testing
 
