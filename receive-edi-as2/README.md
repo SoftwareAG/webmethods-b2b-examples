@@ -94,6 +94,7 @@ Follow the same step to add EDI 855 as well
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/postman.png)
 
 1. Place an EDI 855 file on your FTP. Your FTP acts as a back-end Application.
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/ftp850855.png)
 
 1. Log on to B2B Cloud and select the transactions to see the transaction entries as shown below
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/b2btransactions.png)
