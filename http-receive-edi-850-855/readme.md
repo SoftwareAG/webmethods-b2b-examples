@@ -8,7 +8,7 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 ## Prerequisites
 1. You need Software AG webmethods.io B2B cloud tenant and webmethods.io integration cloud tenant. If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](https://signup.softwareag.cloud/#/?product=b2b)
 
-![](/images/B2BLandingPage.png)
+![](images/B2BLandingPage.png)
 
 2. Create your enterprise Partner profile on B2B Cloud. Provide identifiers to identify your Enterprise uniquely.
 
