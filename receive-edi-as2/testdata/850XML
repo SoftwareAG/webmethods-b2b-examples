@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<PurchaseOrder>
+  <Heading>
+    <SenderID>987654321      </SenderID>
+    <ReceiverID>111111111      </ReceiverID>
+    <RequestedDate>12/14/2010</RequestedDate>
+    <BuyerOrderNumber>08292233294</BuyerOrderNumber>
+    <ContractNumber>610385385</ContractNumber>
+    <InterchangeControlNumber>000000001</InterchangeControlNumber>
+    <ID>
+      <ShipTo>
+        <Name>XYZ RETAIL</Name>
+        <ShippingCode>0003947268292</ShippingCode>
+        <StreetAddress1>31875 SOLON RD</StreetAddress1>
+        <CityName>SOLON</CityName>
+        <State>OH</State>
+        <PostalCode>44139</PostalCode>
+      </ShipTo>
+    </ID>
+  </Heading>
+  <Summary>
+    <TotalLineItems>6</TotalLineItems>
+    <TotalTransactionAmount>13045.94</TotalTransactionAmount>
+  </Summary>
+  <Items>
+    <LineItemNumber>1</LineItemNumber>
+    <QuantityOrdered>120</QuantityOrdered>
+    <UnitOfMeasure>EA</UnitOfMeasure>
+    <UnitPrice>9.25</UnitPrice>
+    <SellerPartNumber>065322-117</SellerPartNumber>
+    <ProductDescription>SMALL WIDGET</ProductDescription>
+    <SalesRequirementCode/>
+    <ProductID>AB3542</ProductID>
+  </Items>
+  <Items>
+    <LineItemNumber>2</LineItemNumber>
+    <QuantityOrdered>220</QuantityOrdered>
+    <UnitOfMeasure>EA</UnitOfMeasure>
+    <UnitPrice>13.79</UnitPrice>
+    <SellerPartNumber>066850-116</SellerPartNumber>
+    <ProductDescription>SMALL WIDGET</ProductDescription>
+    <SalesRequirementCode/>
+    <ProductID>RD5322</ProductID>
+  </Items>
+  <Items>
+    <LineItemNumber>3</LineItemNumber>
+    <QuantityOrdered>126</QuantityOrdered>
+    <UnitOfMeasure>EA</UnitOfMeasure>
+    <UnitPrice>10.99</UnitPrice>
+    <SellerPartNumber>060733-110</SellerPartNumber>
+    <ProductDescription>SMALL WIDGET</ProductDescription>
+    <SalesRequirementCode/>
+    <ProductID>XY5266</ProductID>
+  </Items>
+  <Items>
+    <LineItemNumber>4</LineItemNumber>
+    <QuantityOrdered>76</QuantityOrdered>
+    <UnitOfMeasure>EA</UnitOfMeasure>
+    <UnitPrice>4.35</UnitPrice>
+    <SellerPartNumber>065308-116</SellerPartNumber>
+    <ProductDescription>SMALL WIDGET</ProductDescription>
+    <SalesRequirementCode/>
+    <ProductID>VX2332</ProductID>
+  </Items>
+  <Items>
+    <LineItemNumber>5</LineItemNumber>
+    <QuantityOrdered>72</QuantityOrdered>
+    <UnitOfMeasure>EA</UnitOfMeasure>
+    <UnitPrice>7.5</UnitPrice>
+    <SellerPartNumber>065374-118</SellerPartNumber>
+    <ProductDescription>SMALL WIDGET</ProductDescription>
+    <SalesRequirementCode/>
+    <ProductID>RV0524</ProductID>
+  </Items>
+  <Items>
+    <LineItemNumber>6</LineItemNumber>
+    <QuantityOrdered>696</QuantityOrdered>
+    <UnitOfMeasure>EA</UnitOfMeasure>
+    <UnitPrice>9.55</UnitPrice>
+    <SellerPartNumber>067504-118</SellerPartNumber>
+    <ProductDescription>SMALL WIDGET</ProductDescription>
+    <SalesRequirementCode/>
+    <ProductID>DX1875</ProductID>
+  </Items>
+</PurchaseOrder>
