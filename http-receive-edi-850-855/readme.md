@@ -17,7 +17,7 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 3. You need an FTP server to connect. You can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
 
 ## Transaction Flow
-1. Partner (Postman client) sends EDI 850 to B2B Cloud via HTTP/HTTPS over HTTP
+1. Partner (Postman client) sends EDI 850 to B2B Cloud via HTTP/HTTPS
 1. B2B Cloud identifies the EDI document Type, Sender and Receiver 
 1. B2B Cloud executes the processing rule based on a criteria for senderid, receiverid, document type
 1. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
