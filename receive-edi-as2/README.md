@@ -93,5 +93,7 @@ Follow the same step to add EDI 855 as well
 1. Import the postname collection - <link here> and modify Message-Id in the Request header and submit it to the Inbound channel URL.
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/postman.png)
 
+1. Place an EDI 855 file on your FTP. Your FTP acts as a back-end Application.
+
 1. Log on to B2B Cloud and select the transactions to see the transaction entries as shown below
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/b2btransactions.png)
