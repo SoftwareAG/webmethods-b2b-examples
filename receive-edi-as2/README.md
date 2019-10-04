@@ -102,14 +102,10 @@ Provide the name of Integration that you are going to create and expose on webme
 
 ## Testing
 
-1. Place an EDI 855 file on your FTP (https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/testdata/855XML). Your FTP acts as a back-end Application.
-
-![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/ftp850855.png)
-
-2. Download postname collection - https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/B2B%20wm.io.postman_collection.json and import it on Postman. Modify Message-Id field in the Request header and submit it to the Inbound channel URL.
+1. Download postname collection - https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/B2B%20wm.io.postman_collection.json and import it on Postman. Modify Message-Id field in the Request header and submit it to the Inbound channel URL.
 
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/postman.png)
 
-3. On B2B Cloud, click on Transactions to monitor documents as shown below
+2. On B2B Cloud, click on Transactions to monitor documents as shown below
 
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/b2btransactions.png)
