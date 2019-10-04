@@ -1,50 +1,111 @@
-# HTTP - Receive EDI 850 and Respond 855
+# Expose B2B Cloud for AS2 partners to exchange EDI messages
 
-This example walks through on how to setup B2B cloud to receive EDI 850, process it and respond with EDI 855 to sender. This example shows how to setup inbound channel, Document type, Partner profile, processing rules and Integration to parse incoming document.
+B2B Cloud can be exposed as HTTP/HTTPS channel and used to exchange EDI messages with Partners. This usecase is common for all Partners who has capability of exchanging EDI messages over HTTP which is a very popular protocol for EDI.
 
-## Prerequisite
-
-webMethods.io B2B account, User with Administrator privilege and Postman.
+Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 
 
-## Setup
+## Prerequisites
+1. You need Software AG webmethods.io B2B cloud tenant and webmethods.io integration cloud tenant. If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](https://signup.softwareag.cloud/#/?product=b2b)
 
-1. Go ahead and get started creating a blank workflow. If you need a refresher on how to get to this point, this [guide](https://docs.webmethods.io/workflow-building-blocks/creating-first-workflow) can be a great introduction. Your starting point should resemble ![this](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/creating-first-workflow.png)
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/B2BLandingPage.png)
 
-2. The Webhook is created by modifying the start icon, which is is the entrypoint to the new flow. Please select the gear on top of the start icon to access settings. Once settings is selected in the start icon, a 'trigger' dialog will appear that allows Webhook to be selected.![trigger](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/trigger.png) 
+2. Create your enterprise Partner profile on B2B Cloud. Provide identifiers to identify your Enterprise uniquely.
 
-3. Leave Webhook Authentication unchecked. Check/Enable Webhook Payload, add the structure of the input payload into the "Body" text area and click next. Note the webhook url and save this for later. As a best practice, Authentication should be added immedately after flow ("SendSMSUsingTwilio") is working ![webhook](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/webhook.png)  
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/MyEnterprise.png)
 
-![webhookpayload](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/webhook-payload.png) 
+3. You need an FTP server to connect. You can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
 
-4. Select done once presented with the final dialog. You should now see the start arrow dialog replaced with a webhook icon. ![webhookconfigured](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/webhook-canvas.png)
+## Transaction Flow
+1. Partner (Postman client) sends EDI 850 to B2B Cloud via AS2 over HTTP
+1. B2B Cloud identifies the EDI document Type, Sender and Receiver 
+1. B2B Cloud executes the processing rule based on a criteria for senderid, receiverid, document type
+1. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
+	- Receive EDI 850 file and send FA EDI 997 back to the partner
+	- Parse EDI 850 file 
+	- Convert the EDI file to XML
+	- Send the XML file to back-end Application via FTP
+	- Receive a response from back-end Application via FTP
+	- Transform the Application response to EDI 855
+	- Submit the EDI 855 back to B2B Cloud
+	- B2B Cloud delivers EDI 855 message back to the Partner
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/EDIFlow.png)
 
 
-5. Now the flow is ready to process, once the webhook receives the request. In the search dialog lookup "Twilio" service and select "Twilio" service.
-![TwilioSearch](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/twilio-search.png)
+## Tutorial Steps
+1. Create an inbound AS2 channel on Software AG B2B Cloud which is open for inbound AS2 communication from Partner ACME.
 
-6. Drag and drop it into the flow canvas. ![TwilioService](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/twilio-canvas.png) Connect the arrows from webhook to the twilio icon and then to the end icon. This inserts the 'Twilio' step in the flow. 
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/as2INChannel.png)
 
-7. Configure the "Twilio" step by clicking the gear icon in the step. Select action as "Send and SMS". Give it a name (ie the step name) as "Send an SMS". Click + icon next to "Connect to Twilio" drop down and configure the account credentials to connect to Twilio instance. ![TwilioAction](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/twilio-action-configure.png). Note - if you had already configured the Twilio credentials, just reuse it by selecting from "Connect to Twilio" drop down.
+2. Create an outbound AS2 channel on Software AG B2B Cloud which is open for outbound AS2 communication to Partner ACME.
 
-8. Configure the Twilio credentials. You will use Twilio Account SID and AUTH Token to connect to Twilio in this screen.
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/outChannel.png)
 
-![TwilioAuth](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/twilio-auth.png)
+3. Create a partner profile. Before this the assumption is you have already created an Enterprise for your company to receive files. Setting an Enterprise is a one time setup
 
-Click Add to close the window and go back to  configure "Twilio "Send an SMS" window. Click "Next" 
+	ACME Partner setup
+	
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addpartner.png)
 
-9. In the Mapping screen, add the to, from, body from webhook json input. ![TwilioMap](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/twilio-map.png) Click Next and complete the form. The resulting flow will look like as below. ![Twiliofinal](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/twilio-final-complete.png)The flow is now ready for testng in the webMethods.io UI
+4. Add a EDI 850 and 855 business document. This process will create a document type in webMethods Flow Editor , so it will be easy for mappings to be done when a processing rule executes an Integration as part of the action
 
-10. To make this a flow a useful Rest API, you need to return a response. This can be performed by adding a "Return Data on Sync Webhook" service step. In order to do this, in the search dialog lookup "Return" service and select  "Return Data on Sync Webhook" service, drag and drop into the flow canvas.
-The resulting flow will look like as below ![returnresponselinked](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/add-return-hook.png) 
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addbusinessdocument.png)
 
-11.Configure the "Return Data on Sync Webhook" service by clicking on the gear icon on the service step, give it a name and click next
+Follow the same step to add EDI 855 as well
 
-12. In this page map the response status code from Twilio function to Response data of the "Return Data on Sync Webhook" service. ![returnwebhookmapped](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/return-hook-map.png). Click Next and Done.
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addEDI850.png)
 
-13. The flow is now ready to test as a Rest API from an external tool like Postman. Please make sure to grab the exposed Rest URL from the Webhook URL field in the first flow step(webhook) and use it as the Rest API URL. ![restcall](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/postman-execution.png). On Succesful execution a SMS will be delivered to the number provided in To field. ![sms](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/sms-screenshot.jpg)
 
-## Complete Solution
-Zip file and json file of complete solution can be downloaded from below links.
-* [Zip](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/send-sms-using-twilio.zip)
-* [JSON](https://github.com/mangatrai/webmethodsio-examples/blob/master/twilio-send-sms/send-sms-using-twilio.json)
+5. Create a processing rule to process inbound EDI 850 to identify the sender , receiver, document type and action
+
+Add Processing rule
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/processingRule.png)
+
+Give a name
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule1.png)
+
+Associate sender/s
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule2.png)
+
+Associate document/s
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule3.png)
+
+Provide the name of Integration that you are going to create and expose on webmethods.io Integration in the next step
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule4.png)
+
+
+6. Create an Integration on webmethods.io Integration which parses EDI 850 and converts to XML and sends this XML document to backend Application. Then, receives a response from backend and submits EDI 855 back to B2B
+
+- Switch to flow editor
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/FlowEditor.png)
+
+- Click on Recipes and search for edi. You will see receiveEDI850Send855B2BTransactions recipe. Use this recipe.
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/recipe_edi.png)
+
+- Select a project and fill out the application details. If an application is not created , create a new application for each account. This flow assumes you have connectivity to an ftp server. if you dont have one , you can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
+
+- See the following code snippet
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/recipe.png)
+
+- After successful import
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/receiveEDI850Integration.png)
+
+## Testing
+
+1. Download postman collection - [postman](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/B2B%20wm.io.postman_collection.json) and import it on Postman. Modify Message-Id field in the Request header and submit it to the Inbound channel URL.
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/postman.png)
+
+2. On B2B Cloud, click on Transactions to monitor documents as shown below
+
+![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/b2btransactions.png)
