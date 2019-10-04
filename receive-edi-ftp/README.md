@@ -1,8 +1,6 @@
 # Receive EDI file from a Partner via FTP and process via B2B Cloud
 
-As of today, webMethods B2B Cloud doesnt have an inbound channel for accepting FTP files and process them. What do you do when you have partners ( brick and mortar stores, mom and pop shops , for example) can only do FTP ? We have a solution !! This tutorial will walk you through this solution. 
-
-PS : Receiving a file via FTP in B2B Cloud  is in Software AG's roadmap. Please check with your account team or Product management for timelines
+This tutorial walks you through receiving a file via FTP in B2B cloud, which is useful in a variety of applications including prototyping and less sophisticated partners. This feature is in Software AG's roadmap. Please check with your account team or Product management for timelines.
 
 Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 
