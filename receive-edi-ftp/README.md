@@ -25,7 +25,7 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 ## Tutorial Video
 Opens in YouTube - Right Click on image and open link in new tab
 
-[![Alt text](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receive-edi-ftp/images/EDI-FTP.png)](https://youtu.be/TDbUTuhfE9M)
+[![Alt text](images/EDI-FTP.png)](https://youtu.be/TDbUTuhfE9M)
 
 	
 ## Tutorial Steps
