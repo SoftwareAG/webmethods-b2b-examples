@@ -77,14 +77,9 @@ Follow the same step to add EDI 855 as well
 	- Switch to flow editor
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/FlowEditor.png)
 
-	- Click on Recipes and search for edi
-	
-	You will see receiveEDI850Send855B2BTransactions recipe.
-
+	- Click on Recipes and search for edi. You will see receiveEDI850Send855B2BTransactions recipe. Use this recipe.
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/recipe_edi.png)
 
-	- Click on Use
-	
 	- Select a project and fill out the application details. If an application is not created , create a new application for each account. This flow assumes you have connectivity to an ftp server. if you dont have one , you can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
 	
 	- See the following code snippet
