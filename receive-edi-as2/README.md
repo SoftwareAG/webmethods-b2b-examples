@@ -102,7 +102,7 @@ Provide the name of Integration that you are going to create and expose on webme
 
 ## Testing
 
-1. Place an EDI 855 file on your FTP. Your FTP acts as a back-end Application.
+1. Place an EDI 855 file on your FTP (https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/testdata/855XML). Your FTP acts as a back-end Application.
 
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/ftp850855.png)
 
