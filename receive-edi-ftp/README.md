@@ -7,7 +7,7 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 ## Prerequisites
 1. You need an FTP server to connect. You can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
 1. You already have a trial B2B tenant which includes flow editor. If you don't have one sign up for free 30 trial tenant at https://signup.softwareag.cloud/#/?product=b2b
-1. The first thing you need to do after getting a tenant is to create your enterprise in B2B Cloud
+1. The first thing you need to do after getting a tenant is to create your enterprise in B2B Cloud - Please follow the instructions at the documentation [link](https://documentation.softwareag.com/onlinehelp/Rohan/CLOUD/webMethods.io_B2B/boc1-2-0/webhelp/index.html#page/webm-io-b2b-admin-onlinehelp%2Fco-enterprise_setup.html%23wwconnect_header)
 
 ## Transaction Flow
 1.  webMethods B2B Cloud comes along with Flow editor . We will create an Integration in Flow editor to receive the file and submit to B2B Cloud. This integration will get the file from an FTP server
