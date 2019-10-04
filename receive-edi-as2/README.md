@@ -42,39 +42,55 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/outChannel.png)
 
-3. Create a partner profile. Before this the assumption is you have already created an Enterprise for your company to receive files. here is a screenshot for of how an Enterprise should look like. Setting an Enterprise is a one time setup
-![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/enterprise.png)
+3. Create a partner profile. Before this the assumption is you have already created an Enterprise for your company to receive files. Setting an Enterprise is a one time setup
 
-Partner setup 
-![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addpartner.png)
+	ACME Partner setup 
+	![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addpartner.png)
 
 4. Add a EDI 850 and 855 business document. This process will create a document type in webMethods Flow Editor , so it will be easy for mappings to be done when a processing rule executes an Integration as part of the action
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addbusinessdocument.png)
+
 Follow the same step to add EDI 855 as well
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addEDI850.png)
 
 
 5. Create a processing rule to process inbound EDI 850 to identify the sender , receiver, document type and action
+
+	Add Processing rule
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/processingRule.png)
+
+	Give a name
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule1.png)
+
+	Associate sender/s
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule2.png)
+
+	Associate document/s
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule3.png)
+
+	Provide the name of Integration that you are going to create and expose on webmethods.io Integration in the next step
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/addProcessingrule4.png)
 
 
 6. Create an Integration on webmethods.io Integration which parses EDI 850 and converts to XML and sends this XML document to backend Application. Then, receives a response from backend and submits EDI 855 back to B2B
-	- Switch to flow editor and click on recipes
+
+	- Switch to flow editor
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/FlowEditor.png)
 
-	- Enter "edi" in the search box and press enter
+	- Click on Recipes and search for "edi"
+	
 	- You will see receiveEDI850Send855B2BTransactions recipe. This recipe does the following
 *Receives an EDI 850 Purchase Order (PO) from a trading partner through the webMethods.io B2B product instance, performs service orchestrations to interpret the PO, and uses a back-end FTP server to generate the PO Acknowledgment, and routes it back to the trading partner through webMethods.io B2B product instance.*
 
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/recipe_edi.png)
+
 	- Click on Use
+	
 	- Select a project and fill out the application details. If an application is not created , create a new application for each account. This flow assumes you have connectivity to an ftp server. if you dont have one , you can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
+	
 	- See the following code snippet
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/recipe.png)
+
 	- After successful import
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/receiveEDI850Integration.png)
 
