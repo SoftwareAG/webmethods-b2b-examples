@@ -22,7 +22,9 @@ Contributors: Chaitanya Jadcherla, Mangat Rai , Shashank Patel
 	- Convert the EDI file to XML
 	- Create an EDI 855
 	- send the EDI 855 back to the trading partner via B2B Cloud
-## Tutotial Video
+## Tutorial Video
+Opens in YouTube - Right Click on image and open link in new tab
+
 [![Alt text](https://github.com/krishnajc/webmethods-b2b-examples/blob/master/receive-edi-ftp/images/EDI-FTP.png)](https://youtu.be/TDbUTuhfE9M)
 
 	
