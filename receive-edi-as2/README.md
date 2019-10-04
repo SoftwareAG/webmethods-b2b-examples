@@ -75,10 +75,9 @@ Follow the same step to add EDI 855 as well
 6. Create an Integration on webmethods.io Integration which parses EDI 850 and converts to XML and sends this XML document to backend Application. Then, receives a response from backend and submits EDI 855 back to B2B
 
 	- Switch to flow editor
-	
 ![](https://github.com/patelshashank/webmethods-b2b-examples/blob/master/receive-edi-as2/images/FlowEditor.png)
 
-	- Click on Recipes and search for "edi"
+	- Click on Recipes and search for edi
 	
 	You will see receiveEDI850Send855B2BTransactions recipe. This recipe does the following
 	*Receives an EDI 850 Purchase Order (PO) from a trading partner through the webMethods.io B2B product instance, performs service orchestrations to interpret the PO, and uses a back-end FTP server to generate the PO Acknowledgment, and routes it back to the trading partner through webMethods.io B2B product instance.*
