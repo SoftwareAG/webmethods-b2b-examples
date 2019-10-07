@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "56e8b65a-80a9-462b-97c4-48e73cec8dcc",
+		"name": "B2B-HTTP-Channel",
+		"description": "Use this collection for Http inbound channel edi posting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post EDI 850",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/edi",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic ZGVtbzpBY2MxMjM0JCQ=",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{tenanturl}/b2b/routes/channel/447416f4-df8a-42e1-8e55-455e8346368c",
+					"protocol": "https",
+					"host": [
+						"{tenanturl}"
+					],
+					"path": [
+						"b2b",
+						"routes",
+						"channel",
+						"447416f4-df8a-42e1-8e55-455e8346368c"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "post 850 edi to b2b cloud"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
