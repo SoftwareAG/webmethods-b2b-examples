@@ -29,10 +29,10 @@ This design time configuration can be performed using B2B cloud UI. This involve
 ### Setting up enterprise and partner profile
 To setup a profile for the enterprise (Hilton), Click Set up my B2B Enterprise on the welcome screen to open the guided wizard.
 Enter the Name and Organization Unit of the enterprise.
-![](EnterpriseProfile_create.png)
+![](images/EnterpriseProfile_create.png)
 
 Click Add Identity to add information on identities.
-![](EnterpriseProfile_Identity.png)
+![](images/EnterpriseProfile_Identity.png)
 
 The next screens request you to add information about contacts and addresses. This information is necessary for the partner to communicate the enterprise.
 Once the enterprise profile is created, you will see that it is set to Active by default.
