@@ -168,6 +168,7 @@ Now that we have configured an inbound channel and associated it with a partner 
 	5.Under Headers, set Content-Type header as application/edi.
 	6.Under Body, choose the type as raw and paste the below document content.
 	7.Send or submit the request. You should receive a 200 OK response.
-	
+
+
 ### Monitoring
 Please login to B2B cloud and goto Transactions and observe the 
