@@ -74,7 +74,7 @@ Let us now associate the user sam with partner Costco.
 Go the Users section of the profile page of Costco, click Associate User and add the user "sam".
 ![](images/AssociatePartner_user.PNG)
 
-###Associations-Associate inbound channel with partner profile
+### Associations-Associate inbound channel with partner profile
 You should associate an inbound channel with a partner to receive business documents through the configured endpoint.
 Here, we need to associate the inbound channel HTTP-Inbound-Channel with partner Coscto.
 Go the Inbound channels section of the profile page of Costco, click Associate Inbound Channel and add the channel "HTTP-Inbound-Channel".
@@ -100,10 +100,14 @@ Enter the Name and Description of the rule. Note that the Sequence of the rule i
 
 ![](images/ProcessingRule_Create.PNG)
 
+![](images/ProcessingRule_Create1.PNG)
+
 ### Proccesing Rule-Configure criteria
 The criteria defines who the sender and receiver should be, the type of document allowed, etc.
 Choose the sender as Costco and the receiver as Enterprise (which is Hilton, in our case).
 ![](images/ProcessingRule_Criteria.PNG)
+
+![](images/ProcessingRule_Criteria1.PNG)
 
 ### Proccesing Rule-Configure pre-processing options
 These options are used for performing operations prior to the actual processing actions.
@@ -123,11 +127,18 @@ By default, any newly created processing rule is not activated. Activate the pro
 ![](images/ProcessingRule_Active.PNG)
 
 ### Create the concur Account and Action
-Switch to webmethods.io flow editor perspective and under the specific(B2BDemo) project goto applications. Choose the Concur application and create the Account for concur by entering the oAuth credentials.
+Switch to webmethods.io flow editor perspective and under the specific(B2BDemo) project goto applications.
+![](images/webmethods.io_flowEditor.PNG)
+Choose the Concur application and create the Account for concur by entering the oAuth credentials.
 ![](images/ConcurApplication_CreateAccount.PNG) 
+
+![](images/ConcurApplication_CreateAccount1.PNG) 
+
+![](images/ConcurApplication_CreateAccount2.PNG)
 
 Then once the Account is active create the Action "CreateExpense" by choosing the functional area as "ExpenseManagement" and operation as "create QuickExpense"
 ![](images/ConcurApplication_CreateAction.PNG)
+![](images/ConcurApplication_CreateAction.PNG1)
 
 ### We shall configure the service under the same project(B2BDemo) called "ProcessInvoice810" which does the below operations.
 	1.Parse the EDI content by invoking parseContent Service
