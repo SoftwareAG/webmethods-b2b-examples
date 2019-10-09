@@ -137,8 +137,9 @@ Choose the Concur application and create the Account for concur by entering the 
 ![](images/ConcurApplication_CreateAccount2.PNG)
 
 Then once the Account is active create the Action "CreateExpense" by choosing the functional area as "ExpenseManagement" and operation as "create QuickExpense"
+![](images/ConcurApplication_CreateAction1.PNG)
 ![](images/ConcurApplication_CreateAction.PNG)
-![](images/ConcurApplication_CreateAction.PNG1)
+
 
 ### We shall configure the service under the same project(B2BDemo) called "ProcessInvoice810" which does the below operations.
 	1.Parse the EDI content by invoking parseContent Service
