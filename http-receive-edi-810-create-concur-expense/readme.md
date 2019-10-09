@@ -161,17 +161,25 @@ In our example, the endpoint URL is https://b2btenant.webmethodscloud.com/b2b/ro
 ## Testing
 ### Sending document to an inbound channel
 Now that we have configured an inbound channel and associated it with a partner profile, we will be able to send an EDI document to this channel's endpoint.
-	1.Open Postman client.
-	2.Select HTTP POST method.
-	3.Specify the HTTP request URL as the inbound channel's endpoint URL.
-	4.Under Authorization, set the Authorization to Basic Auth and specify the username and password configured as the partner user 	credentials.
+	1.Open Postman client
+	2.Select HTTP POST method
+	3.Specify the HTTP request URL as the inbound channel's endpoint URL
+	4.Under Authorization, set the Authorization to Basic Auth and specify the username and password configured as the partner user 	credentials
 	![](images/Postman_BasicAuth.PNG) 
-	5.Under Headers, set Content-Type header as application/edi.
+	5.Under Headers, set Content-Type header as application/edi
 	![](images/Postman_Header.PNG)
-	6.Under Body, choose the type as raw and paste the below document content.
+	6.Under Body, choose the type as raw and paste the below document content
 	![](images/Postman_Content.PNG)
-	7.Send or submit the request. You should receive a 200 OK response.
+	7.Send or submit the request. You should receive a 200 OK response
 
 
 ### Monitoring
-Please login to B2B cloud and goto Transactions and observe the 
+Please login to B2B cloud and goto Transactions and observe the the transaction and also login to concur and check whether expense has been created.
+
+B2B Cloud Transaction monitoring
+![](images/Monitoring_B2B.PNG)
+webMethods.io flow editor monitoring
+![](images/Monitoring_FlowEditor.PNG)
+Concur expense creation
+![](images/Concur_Expense.PNG)
+
