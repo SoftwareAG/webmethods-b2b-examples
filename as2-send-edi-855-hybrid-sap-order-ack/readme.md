@@ -1,13 +1,12 @@
-# Trigger an Order Ack IDoc in AP ECC6(On-premise) using the hybrid connection and Send 855(EDI Purchase Order Ack) in B2B cloud using AS2.
+# Trigger an Order Ack IDoc in AP ECC6(On-premise) using the hybrid connection and Send 855(EDI Purchase Order Ack) in B2B cloud using FTP.
 
 Let us consider a use case where a hotel chain, Hilton, would like to send business documents to its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like purchase orders, Purchase Orders and other food industry specific documents.
-Costco is the partner which receives the Purchase Order Ack 855 EDI file over AS2 protocal. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
+Costco is the partner which receives the Purchase Order Ack 855 EDI file over FTP protocal. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
 business documents with its partner. 
 This design time configuration can be performed using B2B cloud UI. This involves creation of:
 	Enterprise profile (A profile that represents the hotel chain)
 	Partner profile (Profile that represents the partner)
 	Partner users
-	Communication channels
 	Processing rules
 	
 ## Prerequisites
@@ -22,13 +21,17 @@ This design time configuration can be performed using B2B cloud UI. This involve
 
 4. For triggering IDoc from SAP you should have configured the testing tool in SAP Logon client.
 
+5.You should have a FTP server to reeive the acknowledgement messsages.
+
 ## Transaction Flow
 1. SAP Logon sends the IDoc ORDER Ack from SAP ECC6
 2. Configure the SAP Conncetion and SAP Listener to receive the IDoc Order 05 in Integration Server On-Premise.
 3. The SAP Routing Listner should invoke the specific Intergartion Server service which will intern invoke the webmethods.io flow editor service.
 4. The flow editor service Process855OrderAck will send the edi message to B2B cloud.
-5. B2B cloud executes the action defined in processing rule which is configured to send the outbound edi message via partner preffered channel.
-6. Partner preffered outbound channel is configured as AS2 channel in Partner profile Costco
+5. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
+	-Receive EDI 855 file
+	-Parse EDI 855 file
+	-Extract the 855 EDI Purchase Order ack fine and send it to Costco via FTP protocal.
 	
 
 ## Design time configuration
@@ -88,40 +91,22 @@ To create a partner user, click Add Partner User in Partner users section.
 Create a partner user sam along with password information.
 ![](images/PartnerUser_Create.PNG)
 
-### Channels-Creating Outbound channels
-A channel forms the basis of communication in B2B Cloud and facilitates document exchange.
-There are two types of channels - Inbound (to receive documents) and Outbound (to send documents).
-
-In Channels section, click Add Channel and choose Outbound Channel.
-Choose the Channel type as AS2 and provide the name and description. In this case you need to use the AS2 outbound channel. 
-![](images/AS2Channel_Create.PNG)
-![](images/AS2Channel_Create1.PNG)
-
-Once the channel is created, you will see that the channel is Active by default. Also, note the HTTP endpoint URL which will be used by the partner to send documents.
-![](images/AS2Channel_Active.PNG)
-
 ### Associations-Associate partner user with partner profile
 To send a document to B2B Cloud, a partner must have at least one partner user associated with it.
 Let us now associate the user sam with partner Costco.
 Go the Users section of the profile page of Costco, click Associate User and add the user "sam".
 ![](images/AssociatePartner_user.PNG)
 
-### Associations-Associate outbound channel with partner profile
-You should associate an outbound channel with a partner to receive business documents through the configured endpoint.
-Here, we need to associate the outbound channel Costco_AS2Out with partner Coscto.
-Go the Outbound channels section of the profile page of Costco, click Associate Outbound Channel and add the channel "AS2-Outbound-Channel".
-![](images/AssociatePartner_OutboundChannel.PNG)
-
 ### Activate partner profile
 Activate the partner profile of Costco by enabling the Active toggle in the partner profile Summary page.
 ![](images/PartnerProfile_Active.PNG)
 
 ### Business documents
-Generate the X12 4010 850 document by clicking on add documnet and select edi in drop down. 
+Generate the X12 4010 855 document by clicking on add documnet and select edi in drop down. 
 ![](images/BusinessDocuments_Create.PNG)
-Then select the Standard=X12, Version=4010 and Transaction=850 and click on save.
+Then select the Standard=X12, Version=4010 and Transaction=855 and click on save.
 ![](images/BusinessDocuments_Select.PNG)
-The 850 Purchase Order document will be generated and activated.
+The 855 Purchase Order document will be generated and activated.
 ![](images/BusinessDocuments_Active.PNG)
 
 ### Proccesing Rule-Create processing rule
@@ -148,8 +133,8 @@ Let us continue with the default selection that is present. The selection Defer 
 
 ### Proccesing Rule-Configure action
 These are actions that will be executed once the criteria is met and the pre-processing is completed.
-
-We shall configure the action Call an integration. This will enable B2B Cloud to call an integration URL on webMethods Integration Cloud using valid credentials.
+We shall configure the action Call an integration which will deliver the 855 PO ack over ftp protocal. As of today in B2B only http and AS2 is supported protocals. So we will use the service to deliver the document via FTP.
+This will enable B2B Cloud to call an integration URL on webMethods Integration Cloud using valid credentials.
 
 Enter the integration URL, Username and Password. Reliable execution mode is chosen by default (This mode automatically retries failed integration).
 ![](images/ProcessingRule_Action.PNG)
@@ -158,81 +143,44 @@ Enter the integration URL, Username and Password. Reliable execution mode is cho
 By default, any newly created processing rule is not activated. Activate the processing rule High Priority Rule by enabling the Active toggle in the Summary page.
 ![](images/ProcessingRule_Active.PNG)
 
-### Create Hybrid connection between IS On-premise and webmethods.io cloud tenant.
+### Processing Service in webmethods.io flow editor des the following action. You can use HTTP/AS2 for delivering the document as well. In this case it is FTP protocol.
+    -Receive EDI 855 file
+	-Parse EDI 855 file
+	-Extract the 855 EDI Purchase Order ack fine and send it to Costco via FTP protocal.
 
-1.Login to Integration Server instance
-	Before we can start creating the hybrid integration, we need to connect the Integration Server instance with your webMethods.io Integration account where you want to execute the workflows.
-	To do so, login to your Integration Server instance, click webMethods Cloud menu listed in the left-side panel, and click Settings option.
-	Enter the following details in the Settings screen that appears:
-	User Name: Enter the email ID of your webMethods.io integration account.
-	Password: Enter the password of your webMethods.io integration account.
-	webMethods Cloud URL: Enter the complete tenant URL of your webMethods.io Integration account.
-	![](images/WebmethodsCloud_Settings.PNG)
+![](images/Deliver855OverFTP.PNG)
+
+### We shall configure the service under the same project(B2BDemo) called "Process855OrderAck" which does the below operations.
+	1.Convert the xml document to EDI 855 message
+	2.EDI add the group envelope
+	3.EDI add Interchange envelope
+	4.submit the data to B2B cloud
 	
-2.Create account on on-premise Integration Server
-	An account on the on-premise Integration Server acts as a two way communication channel for data transfer between the on-premise Integration Server and webMethods.io Integration.
-	So, when you execute the application uploaded on webmethods.io Integration, it in turn invokes the application instance deployed on the on-premise Integration Server where the actual execution takes place. The output/response of this execution is then sent back to webMethods.io Integration.
-	To create a new account, navigate to webMethods Cloud > Accounts, and click on Create On-Premise Account link.
-	![](images/WebmethodsCloud_Account.PNG)
-	![](images/WebmethodsCloud_AccountUpload.PNG)
-
-3.Create Application
-	You need to create the applications you want to execute using webMethods.io Integration on the Integration Server. Once created, these applications can then be uploaded on to webMethods.io Integration where they can be used in workflows.
-	To create an application, navigate to webMethods Cloud > Applications and click on Define webMethods Cloud Application link.
-	![](images/WebmethodsCloud_Application.PNG)
-	
-4:Upload the created application on webMethods.io Integration
-	Once you have created an application, you need to upload it to webMethods.io integration in order to use it in your workflow. When you upload an application to webMethods.io integration, the metadata of its services such as name, description, and Input/Output Signature is also uploaded to the said application.
-	To upload the application, navigate to webMethods Cloud > Applications, locate the application you want to upload in the webMethods Cloud Applications list, and click on the Upload icon.
-	![](images/WebmethodsCloud_ApplicationUpload.PNG)
-	
-With this, you have successfully created the application in your webMethods Integration Server which can be used in your webMethods.io integration flow editor.
-After this, whenever you login to your webMethods.io Integration account, you will find the uploaded application in the Connectors panel in the webmethods.io flow editor.
-![](images/WebmethodsFlow_Application.PNG)
-
-On-Premise sendOrderToSAP service uses the SAP connection to send the IDoc to SAP. 
-![](images/WebmethodsFlow_SendOrderToSAP.PNG)
-
-### We shall configure the service under the same project(B2BDemo) called "Process850Order" which does the below operations.
-	1.Parse the EDI content by invoking parseContent Service
-	2.Process the envelope message to get the envelope details(sender,receiver,message type, etc)
-	3.Convert the EDI message to XML document.
-	4.map the Purchase Order XML data to SendOrderToSap service which gets executed on-premise.
-	
-![](images/Process850Order.PNG) 
-	
-## Sharing details to partners
-You need to share the inbound channel endpoint details with the partner in order for them to send documents. A partner can use any HTTP client to send a business document to the endpoint URL.
-
-Share endpoint and user details to partner
-Details that need to be shared are - Endpoint URL and Partner User Credentials.
-
-You will find the endpoint URL of the inbound channel and user credentials in the partner profile summary page of Coscto.
-
-In our example, the endpoint URL is https://b2btenant.webmethodscloud.com/b2b/routes/channel/ebf06578-f698-4675-aeaa-1b6d8742bbf4 and partner user is sam.
+![](images/Process855OrderAck.PNG) 
 
 ## Testing
-Sending document to an inbound channel
+Sending document from SAP Logon to Costco FTP server
 
-Now that we have configured an inbound channel and associated it with a partner profile, we will be able to send an EDI document to this channel's endpoint
-1. Open Postman client
-2. Select HTTP AS2 POST method
-3. Specify the AS2 request URL as the inbound channel's endpoint URL
-4. Under Authorization, set the Authorization to Basic Auth and specify the username and password configured as the partner user 	credentials
-![](images/Postman_BasicAuth.PNG) 
-5. Under Headers, set Content-Type header as application/edi-x12 and you need to set AS2 specific headers
-![](images/Postman_Header.PNG)
-6. Under Body, choose the type as raw and paste the below document content
-![](images/Postman_Content.PNG)
-7. Send or submit the request. You should receive a 200 OK response
+Now that we have configured an ftp server folder to receive the PO Ack document from SAP.
+1. Open SAP Logon client and login to SAP ECC6 system
+![](images/Testing_SAPLogonLogin.PNG)
+![](images/Testing_SAPLogonTriggetTool.PNG)
+2. Trigger the IDoc using the testing tool.
+![](images/Testing_SAPLogonTriggerIDoc.PNG)
+3.You should be able to see the transaction using transaction monitoring screen in B2B.
 
 ## Monitoring
-Please login to B2B cloud and goto Transactions and observe the the transaction and also login to concur and check whether expense has been created.
+Login to Integration server admin page and goto SAP adapter to monitor the transactions
+![](images/Monitoring_webmethodsSAPTransaction.PNG)
+
+Login to webmethods.io flow editor and in analyticals see the service invocation of  "Process855OrderAck" and "Deliver855ToCostcoViaFTP"
+![](images/Monitoring_webmethodsflow.PNG)
 
 B2B Cloud Transaction monitoring
 ![](images/Monitoring_B2B.PNG)
-webMethods.io flow editor monitoring
-![](images/Monitoring_FlowEditor.PNG)
-Order creation in SAP ECC6
-![](images/SAP_Order.PNG)
+
+Since we have used the FTP inbound channel of other tenant as outbound channel here it should send the 855 order ack to other tenant.
+Login to the FTP inbound channel tenant and see the transaction monitoring.
+![](images/Monitoring_FTP1.PNG)
+![](images/Monitoring_FTP2.PNG)
 
