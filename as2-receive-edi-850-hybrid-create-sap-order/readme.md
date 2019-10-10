@@ -27,7 +27,7 @@ This design time configuration can be performed using B2B cloud UI. This involve
 	- Receive EDI 850 file
 	- Parse EDI 850 file 
 	- Extract the 850 EDI Purchase Order fields and map it to XML file.
-4. Create the on-premise flow service which converts the XML to ORDER05 IDoc document.
+4. Create the on-premise flow service which converts the XML to ORDER02 IDoc document.
 5.Create the SAP Adapter connection and send the IDoc to SAP using sendIDoc service. 
 
 ## Design time configuration
