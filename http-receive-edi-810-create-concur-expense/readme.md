@@ -1,7 +1,7 @@
-# Recieve 810(EDI Invoice) in B2B cloud using http/https and create an expense report in Concur using the Invoice statement.
+# Receive 810(EDI Invoice) in B2B cloud using http/https and create an expense report in Concur using the Invoice statement.
 
 Let us consider a use case where a hotel chain, Hilton, would like to receive business documents from its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like purchase orders, invoices and other food industry specific documents.
-Costco is the partner which shares the Invoice 810 EDI file over http/https protocal. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
+Costco is the partner which shares the Invoice 810 EDI file over http/https protocol. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
 business documents with its partner. 
 This design time configuration can be performed using B2B cloud UI. This involves creation of:
 	Enterprise profile (A profile that represents the hotel chain)
@@ -21,8 +21,8 @@ This design time configuration can be performed using B2B cloud UI. This involve
 3. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
 	- Receive EDI 810 file
 	- Parse EDI 810 file 
-	- Extract the 810 EDI invoice fields and map it to Consur create Expense api.
-	- Create the Expense report in Concur for the recieved Invoice
+	- Extract the 810 EDI invoice fields and map it to Concur create Expense api.
+	- Create the Expense report in Concur for the received Invoice
 
 ## Design time configuration
 
@@ -76,7 +76,7 @@ Go the Users section of the profile page of Costco, click Associate User and add
 
 ### Associations-Associate inbound channel with partner profile
 You should associate an inbound channel with a partner to receive business documents through the configured endpoint.
-Here, we need to associate the inbound channel HTTP-Inbound-Channel with partner Coscto.
+Here, we need to associate the inbound channel HTTP-Inbound-Channel with partner Costco.
 Go the Inbound channels section of the profile page of Costco, click Associate Inbound Channel and add the channel "HTTP-Inbound-Channel".
 ![](images/AssociatePartner_InboundChannel.PNG)
 
@@ -85,7 +85,7 @@ Activate the partner profile of Costco by enabling the Active toggle in the part
 ![](images/PartnerProfile_Active.PNG)
 
 ### Business documents
-Generate the X12 4010 810 document by clicking on add documnet and select edi in drop down. 
+Generate the X12 4010 810 document by clicking on add document and select edi in drop down. 
 ![](images/BusinessDocuments_Create.PNG)
 Then select the Standard=X12, Version=4010 and Transaction=810 and click on save.
 ![](images/BusinessDocuments_Select.PNG)
@@ -127,7 +127,7 @@ By default, any newly created processing rule is not activated. Activate the pro
 ![](images/ProcessingRule_Active.PNG)
 
 ### Create the concur Account and Action
-Switch to webmethods.io flow editor perspective and under the specific(B2BDemo) project goto applications.
+Switch to webmethods.io flow editor perspective and under the specific(B2BDemo) project go to applications.
 ![](images/webmethods.io_flowEditor.PNG)
 Choose the Concur application and create the Account for concur by entering the oAuth credentials.
 ![](images/ConcurApplication_CreateAccount.PNG) 
@@ -145,7 +145,7 @@ Then once the Account is active create the Action "CreateExpense" by choosing th
 	1.Parse the EDI content by invoking parseContent Service
 	2.Process the envelope message to get the envelope details(sender,receiver,message type, etc)
 	3.Convert the EDI message to document.
-	4.map the Invoice edi data to "createExoense" action.
+	4.map the Invoice edi data to "createExpense" action.
 ![](images/ProcessInvoice810.PNG) 
 	
 ## Sharing details to partners
@@ -154,7 +154,7 @@ You need to share the inbound channel endpoint details with the partner in order
 Share endpoint and user details to partner
 Details that need to be shared are - Endpoint URL and Partner User Credentials.
 
-You will find the endpoint URL of the inbound channel and user credentials in the partner profile summary page of Coscto.
+You will find the endpoint URL of the inbound channel and user credentials in the partner profile summary page of Costco.
 
 In our example, the endpoint URL is https://b2btenant.webmethodscloud.com/b2b/routes/channel/ebf06578-f698-4675-aeaa-1b6d8742bbf4 and partner user is sam.
 
@@ -174,7 +174,7 @@ Now that we have configured an inbound channel and associated it with a partner 
 
 
 ### Monitoring
-Please login to B2B cloud and goto Transactions and observe the the transaction and also login to concur and check whether expense has been created.
+Please login to B2B cloud and go to Transactions and observe the transaction and also login to concur and check whether expense has been created.
 
 B2B Cloud Transaction monitoring
 ![](images/Monitoring_B2B.PNG)
