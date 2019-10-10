@@ -1,6 +1,6 @@
 # Trigger an Order Ack IDoc in AP ECC6(On-premise) using the hybrid connection and Send 855(EDI Purchase Order Ack) in B2B cloud using FTP.
 
-Let us consider a use case where a hotel chain, Hilton, would like to send business documents to its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like purchase orders, Purchase Orders and other food industry specific documents.
+Let us consider a use case where a hotel chain, Hilton, would like to send business documents to its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like Invoice, Purchase Orders, Purchase Order Acknowledgement and other food industry specific documents.
 Costco is the partner which receives the Purchase Order Ack 855 EDI file over FTP protocol. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
 business documents with its partner. 
 This design time configuration can be performed using B2B cloud UI. This involves creation of:
