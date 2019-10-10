@@ -188,7 +188,8 @@ In our example, the endpoint URL is https://b2btenant.webmethodscloud.com/b2b/ro
 ## Testing
 Sending document to an inbound channel
 
-Now that we have configured an inbound channel and associated it with a partner profile, we will be able to send an EDI document to this channel's endpoint.
+Now that we have configured an inbound channel and associated it with a partner profile, we will be able to send an EDI document to this channel's endpoint
+
 	1.Open Postman client
 	2.Select HTTP AS2 POST method
 	3.Specify the AS2 request URL as the inbound channel's endpoint URL
