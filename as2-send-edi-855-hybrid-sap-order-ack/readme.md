@@ -1,7 +1,7 @@
-# Recieve 810(EDI Invoice) in B2B cloud using http/https and create an expense report in Concur using the Invoice statement.
+# Recieve 850(EDI Purchase Order) in B2B cloud using AS2 and create an Purchase Order in SAP ECC6(On-premise) using the hybrid connection.
 
-Let us consider a use case where a hotel chain, Hilton, would like to receive business documents from its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like purchase orders, invoices and other food industry specific documents.
-Costco is the partner which shares the Invoice 810 EDI file over http/https protocal. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
+Let us consider a use case where a hotel chain, Hilton, would like to receive business documents from its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like purchase orders, Purchase Orders and other food industry specific documents.
+Costco is the partner which shares the Purchase Order 850 EDI file over AS2 protocal. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
 business documents with its partner. 
 This design time configuration can be performed using B2B cloud UI. This involves creation of:
 	Enterprise profile (A profile that represents the hotel chain)
@@ -12,17 +12,23 @@ This design time configuration can be performed using B2B cloud UI. This involve
 	
 ## Prerequisites
 1. You need Software AG webmethods.io B2B cloud tenant and webmethods.io integration cloud tenant. If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](https://signup.softwareag.cloud/#/?product=b2b)
-
 ![](images/B2BLandingPage.PNG)
 
+2. You should have Software AG on-premise Integration Server agent with SAP Adapter on-premise.
+![](images/IntegrationServer_SAPAdapter.PNG)
+
+3. You should have access to on-premise SAP Ecc6/any sap system which supports JCO libraries to connect via webmethods sap adapter.
+![](images/SAP_ECC6.PNG)
+
 ## Transaction Flow
-1. Partner (Postman client) sends EDI 810 to B2B Cloud via HTTP/HTTPS
+1. Partner (Postman client) sends EDI 850 to B2B Cloud via AS2
 2. B2B Cloud executes the processing rule based on a criteria for senderid, receiverid, document type
 3. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
-	- Receive EDI 810 file
-	- Parse EDI 810 file 
-	- Extract the 810 EDI invoice fields and map it to Consur create Expense api.
-	- Create the Expense report in Concur for the recieved Invoice
+	- Receive EDI 850 file
+	- Parse EDI 850 file 
+	- Extract the 850 EDI Purchase Order fields and map it to XML file.
+4. Create the on-premise flow service which converts the XML to ORDER02 IDoc document.
+5. Create the SAP Adapter connection and send the IDoc to SAP using sendIDoc service. 
 
 ## Design time configuration
 
@@ -62,11 +68,11 @@ A channel forms the basis of communication in B2B Cloud and facilitates document
 There are two types of channels - Inbound (to receive documents) and Outbound (to send documents).
 
 In Channels section, click Add Channel and choose Inbound Channel.
-Choose the Channel type as HTTP listener and provide the name and description.
-![](images/Channel_Create.PNG)
+Choose the Channel type as AS2 and provide the name and description.
+![](images/AS2Channel_Create.PNG)
 
 Once the channel is created, you will see that the channel is Active by default. Also, note the HTTP endpoint URL which will be used by the partner to send documents.
-![](images/Channel_Active.PNG)
+![](images/AS2Channel_Active.PNG)
 
 ### Associations-Associate partner user with partner profile
 To send a document to B2B Cloud, a partner must have at least one partner user associated with it.
@@ -76,7 +82,7 @@ Go the Users section of the profile page of Costco, click Associate User and add
 
 ### Associations-Associate inbound channel with partner profile
 You should associate an inbound channel with a partner to receive business documents through the configured endpoint.
-Here, we need to associate the inbound channel HTTP-Inbound-Channel with partner Coscto.
+Here, we need to associate the inbound channel Costco_AS2 with partner Coscto.
 Go the Inbound channels section of the profile page of Costco, click Associate Inbound Channel and add the channel "HTTP-Inbound-Channel".
 ![](images/AssociatePartner_InboundChannel.PNG)
 
@@ -85,11 +91,11 @@ Activate the partner profile of Costco by enabling the Active toggle in the part
 ![](images/PartnerProfile_Active.PNG)
 
 ### Business documents
-Generate the X12 4010 810 document by clicking on add documnet and select edi in drop down. 
+Generate the X12 4010 850 document by clicking on add documnet and select edi in drop down. 
 ![](images/BusinessDocuments_Create.PNG)
-Then select the Standard=X12, Version=4010 and Transaction=810 and click on save.
+Then select the Standard=X12, Version=4010 and Transaction=850 and click on save.
 ![](images/BusinessDocuments_Select.PNG)
-The 810 Invoice document will be generated and activated.
+The 850 Purchase Order document will be generated and activated.
 ![](images/BusinessDocuments_Active.PNG)
 
 ### Proccesing Rule-Create processing rule
@@ -126,27 +132,48 @@ Enter the integration URL, Username and Password. Reliable execution mode is cho
 By default, any newly created processing rule is not activated. Activate the processing rule High Priority Rule by enabling the Active toggle in the Summary page.
 ![](images/ProcessingRule_Active.PNG)
 
-### Create the concur Account and Action
-Switch to webmethods.io flow editor perspective and under the specific(B2BDemo) project goto applications.
-![](images/webmethods.io_flowEditor.PNG)
-Choose the Concur application and create the Account for concur by entering the oAuth credentials.
-![](images/ConcurApplication_CreateAccount.PNG) 
+### Create Hybrid connection between IS On-premise and webmethods.io cloud tenant.
 
-![](images/ConcurApplication_CreateAccount1.PNG) 
+1.Login to Integration Server instance
+	Before we can start creating the hybrid integration, we need to connect the Integration Server instance with your webMethods.io Integration account where you want to execute the workflows.
+	To do so, login to your Integration Server instance, click webMethods Cloud menu listed in the left-side panel, and click Settings option.
+	Enter the following details in the Settings screen that appears:
+	User Name: Enter the email ID of your webMethods.io integration account.
+	Password: Enter the password of your webMethods.io integration account.
+	webMethods Cloud URL: Enter the complete tenant URL of your webMethods.io Integration account.
+	![](images/WebmethodsCloud_Settings.PNG)
+	
+2.Create account on on-premise Integration Server
+	An account on the on-premise Integration Server acts as a two way communication channel for data transfer between the on-premise Integration Server and webMethods.io Integration.
+	So, when you execute the application uploaded on webmethods.io Integration, it in turn invokes the application instance deployed on the on-premise Integration Server where the actual execution takes place. The output/response of this execution is then sent back to webMethods.io Integration.
+	To create a new account, navigate to webMethods Cloud > Accounts, and click on Create On-Premise Account link.
+	![](images/WebmethodsCloud_Account.PNG)
+	![](images/WebmethodsCloud_AccountUpload.PNG)
 
-![](images/ConcurApplication_CreateAccount2.PNG)
+3.Create Application
+	You need to create the applications you want to execute using webMethods.io Integration on the Integration Server. Once created, these applications can then be uploaded on to webMethods.io Integration where they can be used in workflows.
+	To create an application, navigate to webMethods Cloud > Applications and click on Define webMethods Cloud Application link.
+	![](images/WebmethodsCloud_Application.PNG)
+	
+4:Upload the created application on webMethods.io Integration
+	Once you have created an application, you need to upload it to webMethods.io integration in order to use it in your workflow. When you upload an application to webMethods.io integration, the metadata of its services such as name, description, and Input/Output Signature is also uploaded to the said application.
+	To upload the application, navigate to webMethods Cloud > Applications, locate the application you want to upload in the webMethods Cloud Applications list, and click on the Upload icon.
+	![](images/WebmethodsCloud_ApplicationUpload.PNG)
+	
+With this, you have successfully created the application in your webMethods Integration Server which can be used in your webMethods.io integration flow editor.
+After this, whenever you login to your webMethods.io Integration account, you will find the uploaded application in the Connectors panel in the webmethods.io flow editor.
+![](images/WebmethodsFlow_Application.PNG)
 
-Then once the Account is active create the Action "CreateExpense" by choosing the functional area as "ExpenseManagement" and operation as "create QuickExpense"
-![](images/ConcurApplication_CreateAction1.PNG)
-![](images/ConcurApplication_CreateAction.PNG)
+On-Premise sendOrderToSAP service uses the SAP connection to send the IDoc to SAP. 
+![](images/WebmethodsFlow_SendOrderToSAP.PNG)
 
-
-### We shall configure the service under the same project(B2BDemo) called "ProcessInvoice810" which does the below operations.
+### We shall configure the service under the same project(B2BDemo) called "Process850Order" which does the below operations.
 	1.Parse the EDI content by invoking parseContent Service
 	2.Process the envelope message to get the envelope details(sender,receiver,message type, etc)
-	3.Convert the EDI message to document.
-	4.map the Invoice edi data to "createExoense" action.
-![](images/ProcessInvoice810.PNG) 
+	3.Convert the EDI message to XML document.
+	4.map the Purchase Order XML data to SendOrderToSap service which gets executed on-premise.
+	
+![](images/Process850Order.PNG) 
 	
 ## Sharing details to partners
 You need to share the inbound channel endpoint details with the partner in order for them to send documents. A partner can use any HTTP client to send a business document to the endpoint URL.
@@ -159,27 +186,27 @@ You will find the endpoint URL of the inbound channel and user credentials in th
 In our example, the endpoint URL is https://b2btenant.webmethodscloud.com/b2b/routes/channel/ebf06578-f698-4675-aeaa-1b6d8742bbf4 and partner user is sam.
 
 ## Testing
-### Sending document to an inbound channel
-Now that we have configured an inbound channel and associated it with a partner profile, we will be able to send an EDI document to this channel's endpoint.
-	1.Open Postman client
-	2.Select HTTP POST method
-	3.Specify the HTTP request URL as the inbound channel's endpoint URL
-	4.Under Authorization, set the Authorization to Basic Auth and specify the username and password configured as the partner user 	credentials
+Sending document to an inbound channel
+
+Now that we have configured an inbound channel and associated it with a partner profile, we will be able to send an EDI document to this channel's endpoint
+	1. Open Postman client
+	2. Select HTTP AS2 POST method
+	3. Specify the AS2 request URL as the inbound channel's endpoint URL
+	4. Under Authorization, set the Authorization to Basic Auth and specify the username and password configured as the partner user 	credentials
 	![](images/Postman_BasicAuth.PNG) 
-	5.Under Headers, set Content-Type header as application/edi
+	5. Under Headers, set Content-Type header as application/edi-x12 and you need to set AS2 specific headers
 	![](images/Postman_Header.PNG)
-	6.Under Body, choose the type as raw and paste the below document content
+	6. Under Body, choose the type as raw and paste the below document content
 	![](images/Postman_Content.PNG)
-	7.Send or submit the request. You should receive a 200 OK response
+	7. Send or submit the request. You should receive a 200 OK response
 
-
-### Monitoring
+## Monitoring
 Please login to B2B cloud and goto Transactions and observe the the transaction and also login to concur and check whether expense has been created.
 
 B2B Cloud Transaction monitoring
 ![](images/Monitoring_B2B.PNG)
 webMethods.io flow editor monitoring
 ![](images/Monitoring_FlowEditor.PNG)
-Concur expense creation
-![](images/Concur_Expense.PNG)
+Order creation in SAP ECC6
+![](images/SAP_Order.PNG)
 

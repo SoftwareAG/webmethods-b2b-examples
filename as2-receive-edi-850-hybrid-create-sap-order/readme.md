@@ -1,7 +1,7 @@
-# Recieve 850(EDI Purchase Order) in B2B cloud using AS2 and create an Purchase Order in SAP ECC6(On-premise) using the hybrid connection.
+# Trigger an Order Ack IDoc in AP ECC6(On-premise) using the hybrid connection and Send 855(EDI Purchase Order Ack) in B2B cloud using AS2.
 
-Let us consider a use case where a hotel chain, Hilton, would like to receive business documents from its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like purchase orders, Purchase Orders and other food industry specific documents.
-Costco is the partner which shares the Purchase Order 850 EDI file over AS2 protocal. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
+Let us consider a use case where a hotel chain, Hilton, would like to send business documents to its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like purchase orders, Purchase Orders and other food industry specific documents.
+Costco is the partner which receives the Purchase Order Ack 855 EDI file over AS2 protocal. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
 business documents with its partner. 
 This design time configuration can be performed using B2B cloud UI. This involves creation of:
 	Enterprise profile (A profile that represents the hotel chain)
@@ -14,23 +14,50 @@ This design time configuration can be performed using B2B cloud UI. This involve
 1. You need Software AG webmethods.io B2B cloud tenant and webmethods.io integration cloud tenant. If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](https://signup.softwareag.cloud/#/?product=b2b)
 ![](images/B2BLandingPage.PNG)
 
-2. You should have Software AG on-premise Integration Server agent with SAP Adapter on-premise.
+2. You should have Software AG on-premise Integration Server agent with SAP Adapter.
 ![](images/IntegrationServer_SAPAdapter.PNG)
 
 3. You should have access to on-premise SAP Ecc6/any sap system which supports JCO libraries to connect via webmethods sap adapter.
 ![](images/SAP_ECC6.PNG)
 
+4. For triggering IDoc from SAP you should have configured the testing tool in SAP Logon client.
+
 ## Transaction Flow
-1. Partner (Postman client) sends EDI 850 to B2B Cloud via AS2
-2. B2B Cloud executes the processing rule based on a criteria for senderid, receiverid, document type
-3. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
-	- Receive EDI 850 file
-	- Parse EDI 850 file 
-	- Extract the 850 EDI Purchase Order fields and map it to XML file.
-4. Create the on-premise flow service which converts the XML to ORDER02 IDoc document.
-5. Create the SAP Adapter connection and send the IDoc to SAP using sendIDoc service. 
+1. SAP Logon sends the IDoc ORDER Ack from SAP ECC6
+2. Configure the SAP Conncetion and SAP Listener to receive the IDoc Order 05 in Integration Server On-Premise.
+3. The SAP Routing Listner should invoke the specific Intergartion Server service which will intern invoke the webmethods.io flow editor service.
+4. The flow editor service Process855OrderAck will send the edi message to B2B cloud.
+5. B2B cloud executes the action defined in processing rule which is configured to send the outbound edi message via partner preffered channel.
+6. Partner preffered outbound channel is configured as AS2 channel in Partner profile Costco
+	
 
 ## Design time configuration
+
+### Setup SAP Logon client testing tool
+We have SAP Logon client which will trigger the IDoc from SAP-ECC6. You need to set up testing tool for testing this functionality.
+![](images/SAPLogon_TestingTool.PNG)
+
+### Configure SAP Adapter and Listener
+Login to Integration Server where we have SAP adapter installed and configured. Please check the SAP Adapter developer guide for this configueration under https://empower.softwareag.com/
+![](images/IntegrationServer_SAPAdapter.PNG)
+
+Setup the SAP connection to connect to SAP ECC6 instance and enable the connection.
+![](images/IntegrationServer_SAPConnection.PNG)
+![](images/IntegrationServer_SAPConnectionEnable.PNG)
+
+Setup the SAP Listener to receive the IDoc from SAP and enable the listener. Here we should set up the project specific listener.
+![](images/IntegrationServer_SAPListener.PNG)
+![](images/IntegrationServer_SAPListenerEnable.PNG)
+
+Setup the SAP listner notification for the sender, receiver and document type. Then enable the ntificationin admin page.
+![](images/IntegrationServer_SAPListenerNoti.PNG)
+![](images/IntegrationServer_SAPListenerNotiEnable.PNG)
+
+Under SAP Listener notification set up the execution mode as service invoke and invoke the IS service which intern invoke the webmethods.io flow service.
+![](images/IntegrationServer_SAPListenerNotiServiceInvoke.PNG)
+![](images/IntegrationServer_SendDetailService.PNG)
+
+
 
 ### Setting up enterprise and partner profile
 To setup a profile for the enterprise (Hilton), Click Set up my B2B Enterprise on the welcome screen to open the guided wizard.
@@ -189,16 +216,16 @@ In our example, the endpoint URL is https://b2btenant.webmethodscloud.com/b2b/ro
 Sending document to an inbound channel
 
 Now that we have configured an inbound channel and associated it with a partner profile, we will be able to send an EDI document to this channel's endpoint
-	1. Open Postman client
-	2. Select HTTP AS2 POST method
-	3. Specify the AS2 request URL as the inbound channel's endpoint URL
-	4. Under Authorization, set the Authorization to Basic Auth and specify the username and password configured as the partner user 	credentials
-	![](images/Postman_BasicAuth.PNG) 
-	5. Under Headers, set Content-Type header as application/edi-x12 and you need to set AS2 specific headers
-	![](images/Postman_Header.PNG)
-	6. Under Body, choose the type as raw and paste the below document content
-	![](images/Postman_Content.PNG)
-	7. Send or submit the request. You should receive a 200 OK response
+1. Open Postman client
+2. Select HTTP AS2 POST method
+3. Specify the AS2 request URL as the inbound channel's endpoint URL
+4. Under Authorization, set the Authorization to Basic Auth and specify the username and password configured as the partner user 	credentials
+![](images/Postman_BasicAuth.PNG) 
+5. Under Headers, set Content-Type header as application/edi-x12 and you need to set AS2 specific headers
+![](images/Postman_Header.PNG)
+6. Under Body, choose the type as raw and paste the below document content
+![](images/Postman_Content.PNG)
+7. Send or submit the request. You should receive a 200 OK response
 
 ## Monitoring
 Please login to B2B cloud and goto Transactions and observe the the transaction and also login to concur and check whether expense has been created.
