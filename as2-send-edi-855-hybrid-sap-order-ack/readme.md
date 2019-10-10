@@ -38,11 +38,11 @@ This design time configuration can be performed using B2B cloud UI. This involve
 
 ### Setup SAP Logon client testing tool
 We have SAP Logon client which will trigger the IDoc from SAP-ECC6. You need to set up testing tool for testing this functionality.
-! [](images/SAPLogon_TestingTool.PNG)
+![](images/SAPLogon_TestingTool.PNG)
 
 ### Configure SAP Adapter and Listener on Integration Server on premise
 Login to Integration Server where we have SAP adapter installed and configured. Please check the SAP Adapter developer guide for this configuration under https://empower.softwareag.com/
-! [](images/IntegrationServer_SAPAdapter.PNG)
+![](images/IntegrationServer_SAPAdapter.PNG)
 
 Setup the SAP connection to connect to SAP ECC6 instance and enable the connection.
 ![](images/IntegrationServer_SAPConnection.PNG)
@@ -103,7 +103,7 @@ Activate the partner profile of Costco by enabling the Active toggle in the part
 
 ### Business documents
 Generate the X12 4010 855 document by clicking on add document and select edi in drop down. 
-! [](images/BusinessDocuments_Create.PNG)
+![](images/BusinessDocuments_Create.PNG)
 Then select the Standard=X12, Version=4010 and Transaction=855 and click on save.
 ![](images/BusinessDocuments_Select.PNG)
 The 855 Purchase Order document will be generated and activated.
@@ -129,7 +129,7 @@ Choose the sender as Costco and the receiver as Enterprise (which is Hilton, in 
 ### Processing Rule-Configure pre-processing options
 These options are used for performing operations prior to the actual processing actions.
 Let us continue with the default selection that is present. The selection Defer to business document means the value provided in the business document will be considered.
-! [](images/ProcessingRule_preprocessing.PNG)
+![](images/ProcessingRule_preprocessing.PNG)
 
 ### Processing Rule-Configure action
 These are actions that will be executed once the criteria is met and the pre-processing is completed.
@@ -137,18 +137,18 @@ We shall configure the action Call an integration which will deliver the 855 PO 
 This will enable B2B Cloud to call an integration URL on webMethods Integration Cloud using valid credentials.
 
 Enter the integration URL, Username and Password. Reliable execution mode is chosen by default (This mode automatically retries failed integration).
-! [](images/ProcessingRule_Action.PNG)
+![](images/ProcessingRule_Action.PNG)
 
 ### Processing Rule-Activate processing rule
 By default, any newly created processing rule is not activated. Activate the processing rule High Priority Rule by enabling the Active toggle in the Summary page.
-! [](images/ProcessingRule_Active.PNG)
+![](images/ProcessingRule_Active.PNG)
 
 ### Processing Service in webmethods.io flow editor des the following action. You can use HTTP/AS2 for delivering the document as well. In this case it is FTP protocol.
     -Receive EDI 855 file
 	-Parse EDI 855 file
 	-Extract the 855 EDI Purchase Order ack fine and send it to Costco via FTP protocol.
 
-! [](images/Deliver855OverFTP.PNG)
+![](images/Deliver855OverFTP.PNG)
 
 ### We shall configure the service under the same project(B2BDemo) called "Process855OrderAck" which does the below operations.
 	1.Convert the xml document to EDI 855 message
@@ -180,6 +180,6 @@ B2B Cloud Transaction monitoring
 ![](images/Monitoring_B2B.PNG)
 
 Login to the FTP inbound channel tenant and see the transaction monitoring.
-! [](images/Monitoring_FTP1.PNG)
+![](images/Monitoring_FTP1.PNG)
 ![](images/Monitoring_FTP2.PNG)
 
