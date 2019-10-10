@@ -1,7 +1,7 @@
 # Trigger an Order Ack IDoc in AP ECC6(On-premise) using the hybrid connection and Send 855(EDI Purchase Order Ack) in B2B cloud using FTP.
 
 Let us consider a use case where a hotel chain, Hilton, would like to send business documents to its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like purchase orders, Purchase Orders and other food industry specific documents.
-Costco is the partner which receives the Purchase Order Ack 855 EDI file over FTP protocal. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
+Costco is the partner which receives the Purchase Order Ack 855 EDI file over FTP protocol. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
 business documents with its partner. 
 This design time configuration can be performed using B2B cloud UI. This involves creation of:
 	Enterprise profile (A profile that represents the hotel chain)
@@ -21,28 +21,28 @@ This design time configuration can be performed using B2B cloud UI. This involve
 
 4. For triggering IDoc from SAP you should have configured the testing tool in SAP Logon client.
 
-5.You should have a FTP server to reeive the acknowledgement messsages.
+5.You should have an FTP server to receive the acknowledgement messages.
 
 ## Transaction Flow
 1. SAP Logon sends the IDoc ORDER Ack from SAP ECC6
-2. Configure the SAP Conncetion and SAP Listener to receive the IDoc Order 05 in Integration Server On-Premise.
-3. The SAP Routing Listner should invoke the specific Intergartion Server service which will intern invoke the webmethods.io flow editor service.
+2. Configure the SAP Connection and SAP Listener to receive the IDoc Order 05 in Integration Server On-Premise.
+3. The SAP Routing Listener should invoke the specific Integration Server service which will intern invoke the webmethods.io flow editor service.
 4. The flow editor service Process855OrderAck will send the edi message to B2B cloud.
 5. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
 	-Receive EDI 855 file
 	-Parse EDI 855 file
-	-Extract the 855 EDI Purchase Order ack fine and send it to Costco via FTP protocal.
+	-Extract the 855 EDI Purchase Order ack fine and send it to Costco via FTP protocol.
 	
 
 ## Design time configuration
 
 ### Setup SAP Logon client testing tool
 We have SAP Logon client which will trigger the IDoc from SAP-ECC6. You need to set up testing tool for testing this functionality.
-![](images/SAPLogon_TestingTool.PNG)
+! [](images/SAPLogon_TestingTool.PNG)
 
 ### Configure SAP Adapter and Listener on Integration Server on premise
-Login to Integration Server where we have SAP adapter installed and configured. Please check the SAP Adapter developer guide for this configueration under https://empower.softwareag.com/
-![](images/IntegrationServer_SAPAdapter.PNG)
+Login to Integration Server where we have SAP adapter installed and configured. Please check the SAP Adapter developer guide for this configuration under https://empower.softwareag.com/
+! [](images/IntegrationServer_SAPAdapter.PNG)
 
 Setup the SAP connection to connect to SAP ECC6 instance and enable the connection.
 ![](images/IntegrationServer_SAPConnection.PNG)
@@ -52,7 +52,7 @@ Setup the SAP Listener to receive the IDoc from SAP and enable the listener. Her
 ![](images/IntegrationServer_SAPListener.PNG)
 ![](images/IntegrationServer_SAPListenerEnable.PNG)
 
-Setup the SAP listner notification for the sender, receiver and document type. Then enable the ntificationin admin page.
+Setup the SAP listener notification for the sender, receiver and document type. Then enable the notification admin page.
 ![](images/IntegrationServer_SAPListenerNoti.PNG)
 ![](images/IntegrationServer_SAPListenerNotiEnable.PNG)
 
@@ -102,53 +102,53 @@ Activate the partner profile of Costco by enabling the Active toggle in the part
 ![](images/PartnerProfile_Active.PNG)
 
 ### Business documents
-Generate the X12 4010 855 document by clicking on add documnet and select edi in drop down. 
-![](images/BusinessDocuments_Create.PNG)
+Generate the X12 4010 855 document by clicking on add document and select edi in drop down. 
+! [](images/BusinessDocuments_Create.PNG)
 Then select the Standard=X12, Version=4010 and Transaction=855 and click on save.
 ![](images/BusinessDocuments_Select.PNG)
 The 855 Purchase Order document will be generated and activated.
 ![](images/BusinessDocuments_Active.PNG)
 
-### Proccesing Rule-Create processing rule
+### Processing Rule-Create processing rule
 Processing rules specify how you want B2B Cloud to process the inbound documents and the specific actions to take after a document matches with the specified criteria. They get executed in the order of precedence.
 
-In order to place the new rule first in the sequence, click on the first rule in the list, click Add Processing Rule and choose Above.
+To place the new rule first in the sequence, click on the first rule in the list, click Add Processing Rule and choose Above.
 Enter the Name and Description of the rule. Note that the Sequence of the rule is First.
 
 ![](images/ProcessingRule_Create.PNG)
 
 ![](images/ProcessingRule_Create1.PNG)
 
-### Proccesing Rule-Configure criteria
-The criteria defines who the sender and receiver should be, the type of document allowed, etc.
+### Processing Rule-Configure criteria
+The criteria define who the sender and receiver should be, the type of document allowed, etc.
 Choose the sender as Costco and the receiver as Enterprise (which is Hilton, in our case).
 ![](images/ProcessingRule_Criteria.PNG)
 
 ![](images/ProcessingRule_Criteria1.PNG)
 
-### Proccesing Rule-Configure pre-processing options
+### Processing Rule-Configure pre-processing options
 These options are used for performing operations prior to the actual processing actions.
 Let us continue with the default selection that is present. The selection Defer to business document means the value provided in the business document will be considered.
-![](images/ProcessingRule_preprocessing.PNG)
+! [](images/ProcessingRule_preprocessing.PNG)
 
-### Proccesing Rule-Configure action
+### Processing Rule-Configure action
 These are actions that will be executed once the criteria is met and the pre-processing is completed.
-We shall configure the action Call an integration which will deliver the 855 PO ack over ftp protocal. As of today in B2B only http and AS2 is supported protocals. So we will use the service to deliver the document via FTP.
+We shall configure the action Call an integration which will deliver the 855 PO ack over ftp protocol. As of today, in B2B only http and AS2 is supported protocols. So, we will use the service to deliver the document via FTP.
 This will enable B2B Cloud to call an integration URL on webMethods Integration Cloud using valid credentials.
 
 Enter the integration URL, Username and Password. Reliable execution mode is chosen by default (This mode automatically retries failed integration).
-![](images/ProcessingRule_Action.PNG)
+! [](images/ProcessingRule_Action.PNG)
 
-### Proccesing Rule-Activate processing rule
+### Processing Rule-Activate processing rule
 By default, any newly created processing rule is not activated. Activate the processing rule High Priority Rule by enabling the Active toggle in the Summary page.
-![](images/ProcessingRule_Active.PNG)
+! [](images/ProcessingRule_Active.PNG)
 
 ### Processing Service in webmethods.io flow editor des the following action. You can use HTTP/AS2 for delivering the document as well. In this case it is FTP protocol.
     -Receive EDI 855 file
 	-Parse EDI 855 file
-	-Extract the 855 EDI Purchase Order ack fine and send it to Costco via FTP protocal.
+	-Extract the 855 EDI Purchase Order ack fine and send it to Costco via FTP protocol.
 
-![](images/Deliver855OverFTP.PNG)
+! [](images/Deliver855OverFTP.PNG)
 
 ### We shall configure the service under the same project(B2BDemo) called "Process855OrderAck" which does the below operations.
 	1.Convert the xml document to EDI 855 message
@@ -170,17 +170,16 @@ Now that we have configured an ftp server folder to receive the PO Ack document 
 3.You should be able to see the transaction using transaction monitoring screen in B2B.
 
 ## Monitoring
-Login to Integration server admin page and goto SAP adapter to monitor the transactions
+Login to Integration server admin page and go to SAP adapter to monitor the transactions
 ![](images/Monitoring_webmethodsSAPTransaction.PNG)
 
-Login to webmethods.io flow editor and in analyticals see the service invocation of  "Process855OrderAck" and "Deliver855ToCostcoViaFTP"
+Login to webmethods.io flow editor and in analytical see the service invocation of “Process855OrderAck" and "Deliver855ToCostcoViaFTP"
 ![](images/Monitoring_webmethodsflow.PNG)
 
 B2B Cloud Transaction monitoring
 ![](images/Monitoring_B2B.PNG)
 
-Since we have used the FTP inbound channel of other tenant as outbound channel here it should send the 855 order ack to other tenant.
 Login to the FTP inbound channel tenant and see the transaction monitoring.
-![](images/Monitoring_FTP1.PNG)
+! [](images/Monitoring_FTP1.PNG)
 ![](images/Monitoring_FTP2.PNG)
 
