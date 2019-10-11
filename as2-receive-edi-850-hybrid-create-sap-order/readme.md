@@ -1,7 +1,7 @@
-# Recieve 850(EDI Purchase Order) in B2B cloud using AS2 and create an Purchase Order in SAP ECC6(On-premise) using the hybrid connection.
+# Receive 850(EDI Purchase Order) in B2B cloud using AS2 and create a Purchase Order in SAP ECC6(On-premise) using the hybrid connection.
 
-Let us consider a use case where a hotel chain, Hilton, would like to receive business documents from its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like purchase orders, Purchase Orders and other food industry specific documents.
-Costco is the partner which shares the Purchase Order 850 EDI file over AS2 protocal. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
+Let us consider a use case where a hotel chain, Hilton, would like to receive business documents from its partner using webMethods B2B Cloud. The partner, Costco, is a supplier of organic food items. It uses different document types like Invoice, Purchase Orders and other food industry specific documents.
+Costco is the partner which shares the Purchase Order 850 EDI file over AS2 protocol. As an enterprise, Hilton should configure webMethods B2B cloud to enable the exchange of 
 business documents with its partner. 
 This design time configuration can be performed using B2B cloud UI. This involves creation of:
 	Enterprise profile (A profile that represents the hotel chain)
@@ -82,7 +82,7 @@ Go the Users section of the profile page of Costco, click Associate User and add
 
 ### Associations-Associate inbound channel with partner profile
 You should associate an inbound channel with a partner to receive business documents through the configured endpoint.
-Here, we need to associate the inbound channel Costco_AS2 with partner Coscto.
+Here, we need to associate the inbound channel Costco_AS2 with partner Costco.
 Go the Inbound channels section of the profile page of Costco, click Associate Inbound Channel and add the channel "HTTP-Inbound-Channel".
 ![](images/AssociatePartner_InboundChannel.PNG)
 
@@ -91,7 +91,7 @@ Activate the partner profile of Costco by enabling the Active toggle in the part
 ![](images/PartnerProfile_Active.PNG)
 
 ### Business documents
-Generate the X12 4010 850 document by clicking on add documnet and select edi in drop down. 
+Generate the X12 4010 850 document by clicking on add document and select edi in drop down. 
 ![](images/BusinessDocuments_Create.PNG)
 Then select the Standard=X12, Version=4010 and Transaction=850 and click on save.
 ![](images/BusinessDocuments_Select.PNG)
@@ -128,7 +128,7 @@ We shall configure the action Call an integration. This will enable B2B Cloud to
 Enter the integration URL, Username and Password. Reliable execution mode is chosen by default (This mode automatically retries failed integration).
 ![](images/ProcessingRule_Action.PNG)
 
-### Proccesing Rule-Activate processing rule
+### Processing Rule-Activate processing rule
 By default, any newly created processing rule is not activated. Activate the processing rule High Priority Rule by enabling the Active toggle in the Summary page.
 ![](images/ProcessingRule_Active.PNG)
 
@@ -161,7 +161,7 @@ By default, any newly created processing rule is not activated. Activate the pro
 	![](images/WebmethodsCloud_ApplicationUpload.PNG)
 	
 With this, you have successfully created the application in your webMethods Integration Server which can be used in your webMethods.io integration flow editor.
-After this, whenever you login to your webMethods.io Integration account, you will find the uploaded application in the Connectors panel in the webmethods.io flow editor.
+After this, whenever your login to your webMethods.io Integration account, you will find the uploaded application in the Connectors panel in the webmethods.io flow editor.
 ![](images/WebmethodsFlow_Application.PNG)
 
 On-Premise sendOrderToSAP service uses the SAP connection to send the IDoc to SAP. 
@@ -181,7 +181,7 @@ You need to share the inbound channel endpoint details with the partner in order
 Share endpoint and user details to partner
 Details that need to be shared are - Endpoint URL and Partner User Credentials.
 
-You will find the endpoint URL of the inbound channel and user credentials in the partner profile summary page of Coscto.
+You will find the endpoint URL of the inbound channel and user credentials in the partner profile summary page of Costco.
 
 In our example, the endpoint URL is https://b2btenant.webmethodscloud.com/b2b/routes/channel/ebf06578-f698-4675-aeaa-1b6d8742bbf4 and partner user is sam.
 
@@ -201,7 +201,7 @@ Now that we have configured an inbound channel and associated it with a partner 
 	7. Send or submit the request. You should receive a 200 OK response
 
 ## Monitoring
-Please login to B2B cloud and goto Transactions and observe the the transaction and also login to concur and check whether expense has been created.
+Please login to B2B cloud and go to Transactions and observe the transaction and also login to concur and check whether expense has been created.
 
 B2B Cloud Transaction monitoring
 ![](images/Monitoring_B2B.PNG)
