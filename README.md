@@ -1,4 +1,4 @@
-# webmethods-b2b-examples
+# webMethods-b2b-examples
 Collection of examples for beginner webMethods-B2B developers. It consists of common use cases and starting points for developers getting up to speed with webMethods B2B. webMethodsB2B is a tool that allows rapid and reliable out of the box partner integration. A large library of document formats and processing rules including EDI (ANSI X12) electronic document exchange over HTTP and AS2 among others.
 
 ## Introduction
