@@ -9,6 +9,7 @@ Collection of examples for beginner webMethods-B2B developers. It consists of co
 1. [Receive EDI 850](https://github.com/SoftwareAG/webmethods-b2b-examples/tree/master/http-receive-edi-850-855)
 1. [Receive EDI 850 Hybrid create SAP](https://github.com/SoftwareAG/webmethods-b2b-examples/tree/master/as2-receive-edi-850-hybrid-create-sap-order)
 1. [Send EDI 855 Hybrid order SAP](https://github.com/SoftwareAG/webmethods-b2b-examples/tree/master/ftp-send-edi-855-hybrid-sap-order-ack)
+1. [Reprocess EDI documents](https://github.com/SoftwareAG/webmethods-b2b-examples/tree/master/reprocess-resubmit-edi-documents)
 ______________________
 For more information you can Ask a Question in the [TECHcommunity Forums](http://tech.forums.softwareag.com/techjforum/forums/list.page?product=webmethods-io-b2b).
 
