@@ -27,23 +27,21 @@ This tutorial assume that you already have a device connected with cumulocity pl
 	- Submit EDI 850 Purchase Order to B2B using submit inbuilt service. 
 6. B2B cloud will route document to partner using sender\receiver id, Partner profile and outbound channel defined in B2B Cloud.
 
-![](images/EDIFlow.png)
+![](images/FlowDiagram.png)
 
 
 ## Tutorial Steps
-1. Create an inbound AS2 channel on Software AG B2B Cloud which is open for inbound AS2 communication from Partner ACME.
+1. Login to your cumulocity instance. Find you device and copy device Id.
 
-![](images/as2INChannel.png)
+![](images/cumulocity_device.png)
 
-2. Create an outbound AS2 channel on Software AG B2B Cloud which is open for outbound AS2 communication to Partner ACME.
+2. Create a workflow in wm.io. Check [tutorial](https://github.com/SoftwareAG/webmethodsio-examples) on how to create workflow in wm.io
 
-![](images/outChannel.png)
+3. Create a Cumulocity Trigger which listens to Alarm as starting point for this newly created workflow.
 
-3. Create a partner profile. Before this the assumption is you have already created an Enterprise for your company to receive files. Setting an Enterprise is a one time setup
-
-	ACME Partner setup
+	Cumulocity Alarm Trigger
 	
-![](images/addpartner.png)
+![](images/cumulocity_alarm)
 
 4. Add a EDI 850 and 855 business document. This process will create a document type in webMethods Flow Editor , so it will be easy for mappings to be done when a processing rule executes an Integration as part of the action
 
