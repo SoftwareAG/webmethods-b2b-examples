@@ -1,12 +1,14 @@
-# Expose B2B Cloud for AS2 partners to exchange EDI messages
+# Send a Purchase Order EDI 850 based on Alarm from Cumulocity
 
-B2B Cloud can be exposed as an AS2 over HTTP channel and used to exchange EDI messages with Partners. This usecase is common for all Partners who has capability of exchanging EDI messages over AS2 which is a very popular protocol for EDI.
+This examples highlights that how an Alarm generated using cumulocity platform can be easily converted to an EDI document and send to Enterprise partner for further processing. In this example cumulocity is monitoring a Tank and reporting content level back. There is a Smart Rule which is constantly looking at Tank Level and raises an alarm as soon as content goes below critical level. Once the alarm is raised, a workflow is triggered on wm.io platform which intern create an EDI 850 document and route document to Partner via B2B cloud. Lot of manufacturer are moving into continue manufacturing model, using a setup like this can help them achieve continue manufacturing very well.
 
-Contributors: Shashank Patel, Mangat Rai & Chaitanya Jadcherla
+Contributors: Shashank Patel, Mangat Rai
 
 
 ## Prerequisites
-1. You need Software AG webmethods.io B2B cloud tenant and webmethods.io integration cloud tenant. If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](https://signup.softwareag.cloud/#/?product=b2b)
+1. You need Software AG webmethods.io B2B cloud tenant, webmethods.io integration cloud tenant and cumulocity cloud tenant. This tutorial assume that you already have a device connected with cumulocity platform and have smart rule created to raise alarm on Tank Level.
+
+If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](https://signup.softwareag.cloud/#/?product=b2b)
 
 ![](images/B2BLandingPage.png)
 
@@ -14,13 +16,11 @@ Contributors: Shashank Patel, Mangat Rai & Chaitanya Jadcherla
 
 ![](images/MyEnterprise.png)
 
-3. You need an FTP server to connect. You can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
-
 ## Transaction Flow
 1. Partner (Postman client) sends EDI 850 to B2B Cloud via AS2 over HTTP
-1. B2B Cloud identifies the EDI document Type, Sender and Receiver 
-1. B2B Cloud executes the processing rule based on a criteria for senderid, receiverid, document type
-1. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
+2. B2B Cloud identifies the EDI document Type, Sender and Receiver 
+3. B2B Cloud executes the processing rule based on a criteria for senderid, receiverid, document type
+4. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
 	- Receive EDI 850 file and send FA EDI 997 back to the partner
 	- Parse EDI 850 file 
 	- Convert the EDI file to XML
