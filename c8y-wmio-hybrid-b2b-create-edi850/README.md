@@ -6,9 +6,9 @@ Contributors: Shashank Patel, Mangat Rai
 
 
 ## Prerequisites
-1. You need Software AG webmethods.io B2B cloud tenant, webmethods.io integration cloud tenant and cumulocity cloud tenant. This tutorial assume that you already have a device connected with cumulocity platform and have smart rule created to raise alarm on Tank Level.
+1. You need Software AG webmethods.io B2B cloud tenant, webmethods.io integration cloud tenant and cumulocity cloud tenant. If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](https://signup.softwareag.cloud/#/?product=b2b)
 
-If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](https://signup.softwareag.cloud/#/?product=b2b)
+This tutorial assume that you already have a device connected with cumulocity platform and have smart rule created to raise alarm on Tank Level.
 
 ![](images/B2BLandingPage.png)
 
@@ -17,18 +17,15 @@ If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](htt
 ![](images/MyEnterprise.png)
 
 ## Transaction Flow
-1. Partner (Postman client) sends EDI 850 to B2B Cloud via AS2 over HTTP
-2. B2B Cloud identifies the EDI document Type, Sender and Receiver 
-3. B2B Cloud executes the processing rule based on a criteria for senderid, receiverid, document type
-4. B2B cloud executes the action defined in processing rule which is configured to call webmethods.io Integration for further mapping. The integration does the following
-	- Receive EDI 850 file and send FA EDI 997 back to the partner
-	- Parse EDI 850 file 
-	- Convert the EDI file to XML
-	- Send the XML file to back-end Application via FTP
-	- Receive a response from back-end Application via FTP
-	- Transform the Application response to EDI 855
-	- Submit the EDI 855 back to B2B Cloud
-	- B2B Cloud delivers EDI 855 message back to the Partner
+1. Cumulocity raises an alarm once Quantity in Tank goes below a certain threshold.
+2. A workflow in wm.io gets triggered based on the alarm generated in previous step.
+3. Workflow invokes a hybrid service to query on prem SAP ECC system to get details about partner, material, quantity etc needed to create EDI 850 document.
+4. Workflow invokes Salesforce create Case Action and create a case in Salesforce for tracking of Purchase Order.
+5. Workflow executes a flow editor service
+	- Maps 850 EDI business document
+	- convert business document to EDI data.
+	- Submit EDI 850 Purchase Order to B2B using submit inbuilt service. 
+6. B2B cloud will route document to partner using sender\receiver id, Partner profile and outbound channel defined in B2B Cloud.
 
 ![](images/EDIFlow.png)
 
