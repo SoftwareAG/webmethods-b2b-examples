@@ -1,9 +1,8 @@
 # Send a Purchase Order EDI 850 based on Alarm from Cumulocity
 
-This examples highlights that how an Alarm generated using cumulocity platform can be easily converted to an EDI document and send to Enterprise partner for further processing. In this example cumulocity is monitoring a Tank and reporting content level back. There is a Smart Rule which is constantly looking at Tank Level and raises an alarm as soon as content goes below critical level. Once the alarm is raised, a workflow is triggered on wm.io platform which intern create an EDI 850 document and route document to Partner via B2B cloud. Lot of manufacturer are moving into continue manufacturing model, using a setup like this can help them achieve continue manufacturing very well.
+This examples highlights that how an Alarm generated using [Cumulocity](https://www.softwareag.cloud/site/product/cumulocity-iot.html) platform can be easily converted to an EDI document and sent back to the Enterprise partner for further processing. In this example, Cumulocity is monitoring a Tank and reporting content level back. There is a Smart Rule which is constantly monitoring the Tank Level and raises an alarm as soon as content goes below critical level. Once the alarm is raised, a workflow is triggered on wm.io platform which then creates an EDI 850 document and routes that document to Partner via B2B cloud. Many manufacturers are moving into a continuous manufacturing model, using a setup like this can help them achieve their goals.
 
 Contributors: Shashank Patel, Mangat Rai
-
 
 ## Prerequisites
 1. You need Software AG webmethods.io B2B cloud tenant, webmethods.io integration cloud tenant and cumulocity cloud tenant. If you don't have one; sign up for free 30 trial tenant at [Software AG B2B](https://signup.softwareag.cloud/#/?product=b2b)
@@ -17,13 +16,13 @@ This tutorial assume that you already have a device connected with cumulocity pl
 ![](images/MyEnterprise.png)
 
 ## Transaction Flow
-1. Cumulocity raises an alarm once Quantity in Tank goes below a certain threshold.
+1. Cumulocity raises an alarm once the Quantity in Tank goes below a certain threshold.
 2. A workflow in wm.io gets triggered based on the alarm generated in previous step.
 3. Workflow invokes a hybrid service to query on prem SAP ECC system to get details about partner, material, quantity etc needed to create EDI 850 document.
 4. Workflow invokes Salesforce create Case Action and create a case in Salesforce for tracking of Purchase Order.
-5. Workflow executes a flow editor service
-	- Maps 850 EDI business document
-	- convert business document to EDI data.
+5. Workflow executes a flow editor service.
+	- Maps 850 EDI business document.
+	- Convert business document to EDI data.
 	- Submit EDI 850 Purchase Order to B2B using submit inbuilt service. 
 6. B2B cloud will route document to partner using sender\receiver id, Partner profile and outbound channel defined in B2B Cloud.
 
