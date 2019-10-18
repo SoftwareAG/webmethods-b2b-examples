@@ -41,7 +41,20 @@ This tutorial assume that you already have a device connected with cumulocity pl
 
 	Cumulocity Alarm Trigger
 	
-![](images/cumulocity_alarm)
+![](images/cumulocity_alarm.png)
+
+4. Next step is invoke a hybrid Service to look up tank details from on premise SAP ECC. To setup hybrid service login to your on prem Integration Server and follow next steps
+	
+	a. Setup SAP Connection to connect with your ECC system.
+	![](images/onPrem_SAPConnection.png)
+	
+	b. Setup Cloud connection with your wm.io instance. provide your wm.io cloud tenant url, username and password.
+	![](images/onPrem_hybrid.png)
+	
+	c. Create Hybrid cloud application to publish to your wm.io cloud tenant.
+	![](images/onPrem_hybridApps.png)
+	
+	d. Once app is published, it will start showing up in Action menu on right hand side of workflow canvas.
 
 4. Add a EDI 850 and 855 business document. This process will create a document type in webMethods Flow Editor , so it will be easy for mappings to be done when a processing rule executes an Integration as part of the action
 
