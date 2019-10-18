@@ -56,57 +56,47 @@ This tutorial assume that you already have a device connected with cumulocity pl
 	
 	d. Once app is published, it will start showing up in Action menu on right hand side of workflow canvas.
 
-4. Add a EDI 850 and 855 business document. This process will create a document type in webMethods Flow Editor , so it will be easy for mappings to be done when a processing rule executes an Integration as part of the action
+5. Drag and drop this hybrid Action on to the canvas. Map Device ID to hybrid action.
+![](images/wm.io_workflow2.png)
 
-![](images/addbusinessdocument.png)
+6. Next is create Salesforce Task. Drag and drop Salesforce CRM action from right hand side to canvas and map as below.
+![](images/wm.io_workflow4.png)
 
-Follow the same step to add EDI 855 as well
+7. Before going to next step we have to create an Advanced integration in Flow Editor to map EDI and submit to B2B. Also B2B assets such document, partner etc needs to be created.
 
-![](images/addEDI850.png)
+8. First let's create all the B2B assets
 
+	a. Add an EDI 850 business document. This process will create a document type in webMethods Flow Editor , so it will be available easily for edi 850 mapping flow service.
+	![](images/addbusinessdocument.png)
 
-5. Create a processing rule to process inbound EDI 850 to identify the sender , receiver, document type and action
+	![](images/addEDI850.png)
+	
+	b. Create an outbound HTTP/HTTPS channel on Software AG B2B Cloud which is open for outbound HTTP/HTTPS communication to Partner ACME.
 
-Add Processing rule
+	![](images/outChannel.png)
+	
+	c.Create a partner profile. Before this the assumption is you have already created an Enterprise for your company to receive files. Setting an Enterprise is a one time setup
 
-![](images/processingRule.png)
-
-Give a name
-
-![](images/addProcessingrule1.png)
-
-Associate sender/s
-
-![](images/addProcessingrule2.png)
-
-Associate document/s
-
-![](images/addProcessingrule3.png)
-
-Provide the name of Integration that you are going to create and expose on webmethods.io Integration in the next step
-
-![](images/addProcessingrule4.png)
+	ACME Partner setup
+	
+	![](images/addpartner.png)
 
 
-6. Create an Integration on webmethods.io Integration which parses EDI 850 and converts to XML and sends this XML document to backend Application. Then, receives a response from backend and submits EDI 855 back to B2B
+9. Let's Create an Integration on webmethods.io Flow Editor which accepts inputs from cumulocity alarm and sap look up services and create and EDI 850 document to submit to partner.
 
 - Switch to flow editor
 
 ![](images/FlowEditor.png)
 
-- Click on Recipes and search for edi. You will see receiveEDI850Send855B2BTransactions recipe. Use this recipe.
+- Define inputs like below
 
-![](images/recipe_edi.png)
+![](images/wm.io_workflow5.png)
 
-- Select a project and fill out the application details. If an application is not created , create a new application for each account. This flow assumes you have connectivity to an ftp server. if you dont have one , you can sign up for a free ftp server on https://hostedftp.com/ or https://DriveHQ.com
+- Following code snippets or steps needs to be put in this flow service. In this service map to EDI document, Convert to EDI message and submit to B2B cloud
 
-- See the following code snippet
+![](images/wm.io_workflow6.png)
 
-![](images/recipe.png)
 
-- After successful import
-
-![](images/receiveEDI850Integration.png)
 
 ## Testing
 
