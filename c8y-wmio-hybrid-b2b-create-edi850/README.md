@@ -88,6 +88,8 @@ This tutorial assume that you already have a device connected with cumulocity pl
 
 ![](images/FlowEditor.png)
 
+![](images/wm.io_IC1.png)
+
 - Define inputs like below
 
 ![](images/wm.io_workflow5.png)
@@ -96,14 +98,24 @@ This tutorial assume that you already have a device connected with cumulocity pl
 
 ![](images/wm.io_workflow6.png)
 
+10. This newly created integration will be available under webMethods.io  Flows on right hand side menu. Drag and drop to canvas and map as shown below.
 
+![](images/wm.io_workflow3.png)
+
+11. Connect Salesforce Editor and Flow to end. Your integration is complete now. Final workflow should look like something below.
+
+![](images/wm.io_workflow.png)
 
 ## Testing
 
-1. Download postman collection - [postman](B2B%20wm.io.postman_collection.json) and import it on Postman. Modify Message-Id field in the Request header and submit it to the Inbound channel URL.
+1. Run workflow using the Debug capabilities. Flow should run succesfully.
 
-![](images/postman.png)
+![](images/wm.io_workflow7.png)
 
-2. On B2B Cloud, click on Transactions to monitor documents as shown below
+2. All the actions should be completed like below.
 
-![](images/b2btransactions.png)
+![](images/wm.io_workflow8.png)
+
+3. On B2B Cloud, click on Transactions to monitor documents as shown below
+
+![](images/wm.io_b2b1.png)
