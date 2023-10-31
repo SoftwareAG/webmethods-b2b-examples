@@ -12,9 +12,9 @@ Collection of examples for beginner webMethods-B2B developers. It consists of co
 1. [Reprocess EDI documents](https://github.com/SoftwareAG/webmethods-b2b-examples/tree/master/reprocess-resubmit-edi-documents)
 1. [Process EDI from Cumulocity Alarm](https://github.com/SoftwareAG/webmethods-b2b-examples/tree/master/c8y-wmio-hybrid-b2b-create-edi850)
 ______________________
-For more information you can Ask a Question in the [TECHcommunity Forums](http://tech.forums.softwareag.com/techjforum/forums/list.page?product=webmethods-io-b2b).
+For more information, you can Ask a Question in the [TECHcommunity Forums](https://tech.forums.softwareag.com/tags/c/forum/1/webMethods-io-B2B).
 
-You can find additional information in the [Software AG TECHcommunity](http://techcommunity.softwareag.com/home/-/product/name/webmethods-io-b2b).
+You can find additional information in the [Software AG TECHcommunity](https://tech.forums.softwareag.com/tag/webMethods-io-B2B).
 ______________________
 
 These tools are provided as-is and without warranty or support. They do not constitute part of the Software AG product suite. Users are free to use, fork and modify them, subject to the license agreement. While Software AG welcomes contributions, we cannot guarantee to include every contribution in the master project.
